@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="todos")
+@Table(name="todo")
 public class Todo {
 
     @Id
@@ -17,7 +17,7 @@ public class Todo {
 
     private String description;
 
-    private Date dateStarted;
+    private Date datestarted;
 
     private boolean completed;
 
@@ -26,4 +26,6 @@ public class Todo {
     @JsonIgnore
     private User user;
 
+    public Todo() {
+    }
 }
