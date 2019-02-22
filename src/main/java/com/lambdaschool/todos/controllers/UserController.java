@@ -18,6 +18,13 @@ public class UserController {
     @Autowired
     UserRepository userRepo;
 
+//    GET /users - returns all the users *
+//    GET /users/userid/{userid} - return the user based off of the user id *
+//    GET /users/username/{username} - return the user based off of the user name
+//    POST /users - adds a user
+//    PUT /users/userid/{userid} - updates a user based on userid
+//    DELETE /users/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos
+
     @GetMapping("")
     public List<User> allUsers() {
         return userRepo.findAll();
@@ -32,4 +39,5 @@ public class UserController {
         }
         return null;
     }
+
 }
