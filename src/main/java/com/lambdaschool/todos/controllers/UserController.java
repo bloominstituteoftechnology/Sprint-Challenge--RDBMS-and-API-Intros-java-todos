@@ -24,8 +24,8 @@ public class UserController {
 //    GET /users/userid/{userid} - return the user based off of the user id *
 //    GET /users/username/{username} - return the user based off of the user name *
 //    POST /users - adds a user *
-//    PUT /users/userid/{userid} - updates a user based on userid
-//    DELETE /users/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos
+//    PUT /users/userid/{userid} - updates a user based on userid *
+//    DELETE /users/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos *
 
     @ApiOperation(value = "List All Users", response = List.class)
     @ApiResponses(value =
@@ -67,6 +67,16 @@ public class UserController {
             newUser.setUserid(userid);
             userRepo.save(newUser);
             return newUser;
+        }
+        return null;
+    }
+
+    @DeleteMapping("userid/{userid}")
+    public User deleteUser(@PathVariable long userid) {
+        var foundUser = userRepo.findById(userid);
+        if(foundUser.isPresent()) {
+            userRepo.deleteById(userid);
+            return foundUser.get();
         }
         return null;
     }
