@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface TodoRepository extends CrudRepository<Todo, Long> {
 
-    @Query(value = "SELECT * FROM todo WHERE userid = :userid", nativeQuery = true)
+    @Query(value = "SELECT * FROM todo WHERE todos = :userid", nativeQuery = true)
     List<Todo> getAllByID(long userid);
 
     @Transactional
