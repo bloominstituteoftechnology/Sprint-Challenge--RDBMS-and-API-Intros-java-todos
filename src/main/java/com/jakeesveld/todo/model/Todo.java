@@ -8,7 +8,6 @@ import java.util.Date;
 public class Todo extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
     private long todoid;
 
     @Column(nullable = false)
@@ -20,7 +19,6 @@ public class Todo extends Auditable {
 
     @ManyToOne
     @JoinColumn(name = "userid")
-    @Column(nullable = false)
     private User user;
 
     public Todo() {
