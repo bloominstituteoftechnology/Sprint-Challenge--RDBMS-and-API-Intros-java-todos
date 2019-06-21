@@ -1,13 +1,13 @@
-package com.shoon.demo;
+package com.shoon.javatodos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class ToDosApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(ToDosApplication.class, args);
     }
 
 }
