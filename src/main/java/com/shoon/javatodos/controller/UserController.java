@@ -1,10 +1,11 @@
-package com.sqldatabackend.datasqlhibernate.controllers;
+package com.shoon.javatodos.controller;
 
 
 import com.shoon.javatodos.model.ToDo;
 import com.shoon.javatodos.model.User;
 import com.shoon.javatodos.repository.UserRepository;
-import com.shoon.javatodos.service.TodoService;
+
+import com.shoon.javatodos.service.ToDoService;
 import com.shoon.javatodos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +25,7 @@ public class UserController
 {
 
     @Autowired
-    private TodoService todoService;
+    private ToDoService todoService;
 
     @Autowired
     UserService userService;
@@ -42,11 +43,11 @@ public class UserController
     }
 
     @PostMapping(value = "/users",
-            consumes = {"application/json"},
-            produces = {"application/json"})
+    consumes = {"application/json"},
+    produces = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid
                                         @RequestBody
-                                                User newUser) throws URISyntaxException
+                                        User newUser) throws URISyntaxException
     {
         newUser = userService.save(newUser);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -57,25 +58,25 @@ public class UserController
     }
 
     @PostMapping(value = "users/todo/{userid}",
-            consumes = {"application/json"},
-            produces = {"application/json"})
-    public ResponseEntity<?> addUserTodo(@PathVariable long userid,
+    consumes = {"application/json"},
+    produces = {"application/json"})
+    public ResponseEntity<?> addUserToDo(@PathVariable long userid,
                                          @Valid
                                          @RequestBody
-                                                 ToDo newTodo) throws URISyntaxException
+                                                 ToDo newToDo) throws URISyntaxException
     {
-        newTodo = userService.addTodo(newTodo, userid);
+        newToDo = userService.addToDo(newToDo, userid);
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{todoid}").buildAndExpand(newTodo.getlIDtoDo()).toUri();
+        URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{todoid}").buildAndExpand(newToDo.getlIDtoDo()).toUri();
         responseHeaders.setLocation(newRestaurantURI);
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.OK);
     }
 
     @PutMapping(value = "todos/todoid/{todoid}")
-    public ResponseEntity<?> updateTodo(@RequestBody ToDo updateTodo,
+    public ResponseEntity<?> updateToDo(@RequestBody ToDo updateToDo,
                                         @PathVariable long todoid)
     {
-        todoService.update(updateTodo, todoid);
+        todoService.update(updateToDo, todoid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

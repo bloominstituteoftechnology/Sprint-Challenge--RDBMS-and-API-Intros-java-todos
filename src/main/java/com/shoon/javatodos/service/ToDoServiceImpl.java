@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 
 @Service(value = "todoService")
-public class TodoServiceImpl implements TodoService
+public class ToDoServiceImpl implements ToDoService
 {
     @Autowired
     private ToDoRepository todoRepos;

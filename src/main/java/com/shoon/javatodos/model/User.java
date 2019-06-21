@@ -33,7 +33,7 @@ public class User extends Auditable
 
     @OneToMany(mappedBy = "user")
     @JsonIgnoreProperties("user")
-    private ArrayList<ToDo> todoslist = new ArrayList<>();
+    private List<ToDo> todoslist = new ArrayList<>();
 
     public User()
     {
@@ -55,12 +55,12 @@ public class User extends Auditable
         this.userRoles = userRoles;
     }
 
-    public ArrayList<ToDo> getTodoslist()
+    public ArrayList<ToDo> getToDoslist()
     {
         return (ArrayList<ToDo>)todoslist;
     }
 
-    public void setTodoslist(ArrayList<ToDo> todoslist)
+    public void setToDoslist(ArrayList<ToDo> todoslist)
     {
         this.todoslist = todoslist;
     }
@@ -70,12 +70,12 @@ public class User extends Auditable
         return userid;
     }
 
-    public ArrayList<ToDo> getTodos()
+    public List<ToDo> getToDos()
     {
         return todoslist;
     }
 
-    public void setTodos(ArrayList<ToDo> todos)
+    public void setToDos(ArrayList<ToDo> todos)
     {
         this.todoslist = todos;
     }

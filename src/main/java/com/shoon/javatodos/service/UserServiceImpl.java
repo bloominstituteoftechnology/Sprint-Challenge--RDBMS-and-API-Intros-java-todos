@@ -87,9 +87,9 @@ public class UserServiceImpl implements UserDetailsService, UserService
         }
         newUser.setUserRoles(newRoles);
 
-        for (ToDo q : user.getTodoslist())
+        for (ToDo q : user.getToDoslist())
         {
-            newUser.getTodoslist().add( new ToDo(q.getStrDescription(), newUser));
+            newUser.getToDoslist().add( new ToDo(q.getStrDescription(), newUser));
         }
 
         return userrepos.save(newUser);
@@ -145,11 +145,11 @@ public class UserServiceImpl implements UserDetailsService, UserService
                     }
                 }
 
-                if (user.getTodoslist().size() > 0)
+                if (user.getToDoslist().size() > 0)
                 {
-                    for (ToDo q : user.getTodoslist())
+                    for (ToDo q : user.getToDoslist())
                     {
-                        currentUser.getTodoslist().add( new ToDo(q.getStrDescription(), currentUser));
+                        currentUser.getToDoslist().add( new ToDo(q.getStrDescription(), currentUser));
                     }
                 }
                 return userrepos.save(currentUser);
@@ -166,21 +166,26 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
     }
 
+    @Override
+    public ToDo ToDo(ToDo todo, long id) {
+        return null;
+    }
+
     @Transactional
     @Override
-    public ToDo addTodo(ToDo todo, long id)
+    public ToDo addToDo(ToDo todo, long id)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userrepos.findByUsername(authentication.getName());
-        ToDo newTodo = new ToDo(todo.getStrDescription(),currentUser);
+        ToDo newToDo = new ToDo(todo.getStrDescription(),currentUser);
 
-        ArrayList<ToDo> newTodos = new ArrayList<>();
-        for (ToDo t : currentUser.getTodoslist())
+        ArrayList<ToDo> newToDos = new ArrayList<>();
+        for (ToDo t : currentUser.getToDoslist())
         {
             todoRepos.insertUserTodos(t.getlIDtoDo(), currentUser.getUserid());
         }
-        currentUser.setTodoslist(newTodos);
+        currentUser.setToDoslist(newToDos);
 
-        return todoRepos.save(newTodo);
+        return todoRepos.save(newToDo);
     }
 }

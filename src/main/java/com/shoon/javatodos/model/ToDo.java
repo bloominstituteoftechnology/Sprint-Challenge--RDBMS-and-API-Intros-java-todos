@@ -24,23 +24,23 @@ public class ToDo extends Auditable
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"todoslist"})
     @JoinColumn(name = "userid")
-    private User userID;  // foreign key (one user to many todos) not null
+    private User user;  // foreign key (one user to many todos) not null
 
 
     @OneToMany(mappedBy = "todo",
             cascade = CascadeType.ALL)
     @JsonIgnoreProperties("todo")
-    private List<ToDo> userTodos = new ArrayList<>();
+    private List<User> userTodos = new ArrayList<>();
 
     public ToDo(String strDescription, User newUser) {
         this.strDescription=strDescription;
-        userID=newUser;
+        user=newUser;
 
     }
 
     public ToDo(String strDescription, Date date, User user) {
         this.strDescription=strDescription;
-        userID=user;
+        this.user=user;
         lStarted=Long.parseLong(String.valueOf(date));
     }
 
@@ -78,18 +78,18 @@ public class ToDo extends Auditable
     }
 
     public User getUserID() {
-        return userID;
+        return user;
     }
 
-    public void setUserID(User userID) {
-        this.userID = userID;
+    public void setUserID(User user) {
+        this.user = user;
     }
 
-    public List<ToDo> getUserTodos() {
+    public List<User> getUserTodos() {
         return userTodos;
     }
 
-    public void setUserTodos(List<ToDo> userTodos) {
+    public void setUserTodos(List<User> userTodos) {
         this.userTodos = userTodos;
     }
 }

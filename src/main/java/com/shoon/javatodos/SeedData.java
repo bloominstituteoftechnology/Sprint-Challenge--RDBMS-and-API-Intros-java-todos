@@ -44,17 +44,17 @@ public class SeedData implements CommandLineRunner {
         User u1 = new User("barnbarn", "ILuvM4th!", users);
         Date date=new Date();
         ToDo newToDo=new ToDo("Finish java-orders-swagger", date, u1);
-        u1.getTodos().add(newToDo);
-        u1.getTodos().add(new ToDo("Feed the turtles", date, u1));
-        u1.getTodos().add(new ToDo("Complete the sprint challenge", date, u1));
+        u1.getToDoslist().add(newToDo);
+        u1.getToDoslist().add(new ToDo("Feed the turtles", date, u1));
+        u1.getToDoslist().add(new ToDo("Complete the sprint challenge", date, u1));
         userrepos.save(u1);
 
         ArrayList<UserRoles> admins = new ArrayList<>();
         admins.add(new UserRoles(new User(), r1));
         admins.add(new UserRoles(new User(), r2));
         User u2 = new User("admin", "password", admins);
-        u2.getTodos().add(new ToDo("Walk the dogs", date, u2));
-        u2.getTodos().add(new ToDo("provide feedback to my instructor", date, u2));
+        u2.getToDoslist().add(new ToDo("Walk the dogs", date, u2));
+        u2.getToDoslist().add(new ToDo("provide feedback to my instructor", date, u2));
         userrepos.save(u2);
 
         users = new ArrayList<>();
