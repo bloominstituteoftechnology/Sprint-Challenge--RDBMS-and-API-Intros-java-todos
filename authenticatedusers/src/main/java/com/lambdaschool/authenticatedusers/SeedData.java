@@ -31,10 +31,13 @@ public class SeedData implements CommandLineRunner {
     @Override
     public void run(String[] args) throws Exception {
         Role r1 = new Role("admin");
-        Role r2 = new Role("user");
+
+  //      Role r2 = new Role("user");
+
 
         rolerepos.save(r1);
-        rolerepos.save(r2);
+ //       rolerepos.save(r2);
+
 
         ArrayList<UserRoles> userroles = new ArrayList<>();
         User u1 = new User("admin", "password");
