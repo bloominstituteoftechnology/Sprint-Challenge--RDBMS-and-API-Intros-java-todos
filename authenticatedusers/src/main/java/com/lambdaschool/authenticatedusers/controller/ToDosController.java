@@ -56,7 +56,7 @@ public class ToDosController
         URI newToDoURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{todoid}")
-                .buildAndExpand(newToDo.getToDoid())
+                .buildAndExpand(newToDo.getToDoID())
                 .toUri();
         responseHeaders.setLocation(newToDoURI);
 

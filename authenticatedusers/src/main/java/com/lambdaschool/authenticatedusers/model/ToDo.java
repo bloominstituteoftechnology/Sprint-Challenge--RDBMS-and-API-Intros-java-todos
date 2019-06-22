@@ -6,23 +6,23 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "quotes")
+@Table(name = "todos")
 public class ToDo extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long quotesid;
+    private long ToDosid;
 
     @Column(nullable = false)
-    private String quote;
+    private String toDo;
 
     @Column(nullable = false)
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid",
+    @JoinColumn(name = "users",
             nullable = false)
-    @JsonIgnoreProperties({"quotes", "hibernateLazyInitializer"})
+    @JsonIgnoreProperties({"toDos", "hibernateLazyInitializer"})
     private User user;
 
     public ToDo()
@@ -31,15 +31,15 @@ public class ToDo extends Auditable
 
     }
 
-    public ToDo(String quote, User user)
+    public ToDo(String ToDo, User user)
     {
-        this.quote = quote;
+        this.toDo = ToDo;
         this.user = user;
         this.date= new Date();
     }
 
-    public ToDo(String quote, Date date, User user) {
-        this.quote = quote;
+    public ToDo(String todo, Date date, User user) {
+        this.toDo = todo;
         this.user = user;
         this.date= new Date();
     }
@@ -49,24 +49,24 @@ public class ToDo extends Auditable
     }
 
 
-    public long getToDoid()
+    public long getToDoID()
     {
-        return quotesid;
+        return ToDosid;
     }
 
-    public void setToDoid(long quotesid)
+    public void setToDoID(long ToDosid)
     {
-        this.quotesid = quotesid;
+        this.ToDosid = ToDosid;
     }
 
     public String getToDo()
     {
-        return quote;
+        return toDo;
     }
 
-    public void setToDo(String quote)
+    public void setToDo(String ToDo)
     {
-        this.quote = quote;
+        this.toDo = ToDo;
     }
 
     public User getUser()
