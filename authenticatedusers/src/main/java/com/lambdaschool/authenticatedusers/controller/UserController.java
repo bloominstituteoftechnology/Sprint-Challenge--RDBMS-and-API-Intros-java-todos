@@ -86,11 +86,13 @@ public class UserController
     }
 
 //POST /users/todo/{userid} - adds a todo to the assigned user. Can be done by any user.
-    @PutMapping(value = "/todo/{userid}")
-    public ResponseEntity<?> updateToDo(@RequestBody
+
+    @PostMapping(value = "/todo/{userid}", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<?> addToDo(@RequestBody
                                                 ToDo updateToDo, @PathVariable long userid)
     {
-        todoService.update(updateToDo, userid);
+        updateToDo.setUser(userService.findUserById(userid));
+        todoService.save(updateToDo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
