@@ -54,6 +54,8 @@ public class UserController
         return new ResponseEntity<>(userService.findUserByName(authentication.getName()).getUsername(), HttpStatus.OK);
     }
 
+
+    //GET /users/mine - return the user and todo based off of the authenticated user. You can only look up your own.
     @GetMapping(value = "/mine", produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<?> getMine(Authentication authentication)
@@ -64,7 +66,7 @@ public class UserController
     }
 
 
-
+//POST /users - adds a user. Can only be done by an admin.
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/user", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newuser) throws URISyntaxException
@@ -83,6 +85,14 @@ public class UserController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+//POST /users/todo/{userid} - adds a todo to the assigned user. Can be done by any user.
+    @PutMapping(value = "/todo/{userid}")
+    public ResponseEntity<?> updateToDo(@RequestBody
+                                                ToDo updateToDo, @PathVariable long userid)
+    {
+        todoService.update(updateToDo, userid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PutMapping(value = "/user/{id}")
     public ResponseEntity<?> updateUser(@RequestBody User updateUser, @PathVariable long id)
@@ -91,9 +101,9 @@ public class UserController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+ //   DELETE /users/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos. Can only be done by an admin.
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/userid/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable long id)
     {
         userService.delete(id);

@@ -63,7 +63,9 @@ public class ToDosController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/todo/{todoid}")
+
+ //   PUT /todos/todoid/{todoid} - updates a todo based on todoid. Can be done by any user.
+    @PutMapping(value = "/todoid/{todoid}")
     public ResponseEntity<?> updateToDo(@RequestBody
                                                 ToDo updateToDo, @PathVariable long todoid)
     {
