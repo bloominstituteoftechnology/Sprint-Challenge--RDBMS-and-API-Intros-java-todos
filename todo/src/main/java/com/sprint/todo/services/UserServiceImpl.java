@@ -1,8 +1,10 @@
 package com.sprint.todo.services;
 
+import com.sprint.todo.models.Todo;
 import com.sprint.todo.models.User;
 import com.sprint.todo.models.UserRoles;
 import com.sprint.todo.repository.RoleRepository;
+import com.sprint.todo.repository.TodoRepository;
 import com.sprint.todo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,16 +19,17 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service(value = "userService")
-public class UserServiceImpl implements UserDetailsService, UserService
-{
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserRepository userrepos;
 
     @Autowired
     private RoleRepository rolerepos;
+
+    @Autowired
+    private TodoRepository todoRepos;
 
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
@@ -53,10 +56,16 @@ public class UserServiceImpl implements UserDetailsService, UserService
     }
 
     @Override
+    public User findUserByUsername(String username) {
+        return userrepos.findByUsername(username);
+    }
+
+    @Override
     public void delete(long id)
     {
         if (userrepos.findById(id).isPresent())
         {
+            todoRepos.getAllByID(id);
             userrepos.deleteById(id);
         }
         else
@@ -79,6 +88,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
             newRoles.add(new UserRoles(newUser, ur.getRole()));
         }
         newUser.setUserRoles(newRoles);
+
 
         return userrepos.save(newUser);
     }
@@ -106,12 +116,7 @@ public class UserServiceImpl implements UserDetailsService, UserService
 
                 if (user.getUserRoles().size() > 0)
                 {
-                    // with so many relationships happening, I decided to go
-                    // with old school queries
-                    // delete the old ones
                     rolerepos.deleteUserRolesByUserId(currentUser.getUserid());
-
-                    // add the new ones
                     for (UserRoles ur : user.getUserRoles())
                     {
                         rolerepos.insertUserRoles(id, ur.getRole().getRoleid());

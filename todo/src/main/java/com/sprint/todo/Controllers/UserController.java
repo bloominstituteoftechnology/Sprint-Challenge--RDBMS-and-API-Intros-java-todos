@@ -27,7 +27,7 @@ public class UserController
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/users", produces = {"application/json"})
-    public ResponseEntity<?> listAllUsers(HttpServletRequest request)
+    public ResponseEntity<?> listAllUsers()
     {
         List<User> myUsers = userService.findAll();
         return new ResponseEntity<>(myUsers, HttpStatus.OK);
@@ -36,7 +36,7 @@ public class UserController
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/user/{userId}", produces = {"application/json"})
-    public ResponseEntity<?> getUser(HttpServletRequest request, @PathVariable Long userId)
+    public ResponseEntity<?> getUser(@PathVariable Long userId)
     {
         User u = userService.findUserById(userId);
         return new ResponseEntity<>(u, HttpStatus.OK);
@@ -45,7 +45,7 @@ public class UserController
 
     @GetMapping(value = "/getusername", produces = {"application/json"})
     @ResponseBody
-    public ResponseEntity<?> getCurrentUserName(HttpServletRequest request, Authentication authentication)
+    public ResponseEntity<?> getCurrentUserName(Authentication authentication)
     {
         return new ResponseEntity<>(authentication.getPrincipal(), HttpStatus.OK);
     }
@@ -53,11 +53,10 @@ public class UserController
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/user", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<?> addNewUser(HttpServletRequest request, @Valid @RequestBody User newuser) throws URISyntaxException
+    public ResponseEntity<?> addNewUser(@Valid @RequestBody User newuser) throws URISyntaxException
     {
         newuser =  userService.save(newuser);
 
-        // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -71,7 +70,7 @@ public class UserController
 
 
     @PutMapping(value = "/user/{id}")
-    public ResponseEntity<?> updateUser(HttpServletRequest request, @RequestBody User updateUser, @PathVariable long id)
+    public ResponseEntity<?> updateUser(@RequestBody User updateUser, @PathVariable long id)
     {
         userService.update(updateUser, id);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -80,7 +79,7 @@ public class UserController
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> deleteUserById(HttpServletRequest request, @PathVariable long id)
+    public ResponseEntity<?> deleteUserById(@PathVariable long id)
     {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);

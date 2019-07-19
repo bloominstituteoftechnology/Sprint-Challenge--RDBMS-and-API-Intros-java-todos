@@ -4,10 +4,11 @@ import com.sprint.todo.models.User;
 
 import java.util.List;
 
-public interface UserService
-{
+public interface UserService {
 
     List<User> findAll();
+
+    User findUserByUsername(String username);
 
     User findUserById(long id);
 

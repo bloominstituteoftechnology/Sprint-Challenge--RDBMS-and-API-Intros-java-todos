@@ -22,19 +22,16 @@ public class RolesController
     @Autowired
     RoleService roleService;
 
-
-
     @GetMapping(value = "/roles", produces = {"application/json"})
-    public ResponseEntity<?> listRoles(HttpServletRequest request)
+    public ResponseEntity<?> listRoles()
     {
-
         List<Role> allRoles = roleService.findAll();
         return new ResponseEntity<>(allRoles, HttpStatus.OK);
     }
 
 
     @GetMapping(value = "/role/{roleId}", produces = {"application/json"})
-    public ResponseEntity<?> getRole(HttpServletRequest request, @PathVariable Long roleId)
+    public ResponseEntity<?> getRole(@PathVariable Long roleId)
     {
         Role r = roleService.findRoleById(roleId);
         return new ResponseEntity<>(r, HttpStatus.OK);
@@ -42,11 +39,9 @@ public class RolesController
 
 
     @PostMapping(value = "/role")
-    public ResponseEntity<?> addNewRole(HttpServletRequest request, @Valid @RequestBody Role newRole) throws URISyntaxException
+    public ResponseEntity<?> addNewRole(@Valid @RequestBody Role newRole) throws URISyntaxException
     {
         newRole = roleService.save(newRole);
-
-        // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newRoleURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -60,7 +55,7 @@ public class RolesController
 
 
     @DeleteMapping("/role/{id}")
-    public ResponseEntity<?> deleteRoleById(HttpServletRequest request, @PathVariable long id)
+    public ResponseEntity<?> deleteRoleById(@PathVariable long id)
     {
         roleService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
