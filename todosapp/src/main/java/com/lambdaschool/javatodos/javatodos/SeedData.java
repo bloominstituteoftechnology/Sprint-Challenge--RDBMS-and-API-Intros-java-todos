@@ -1,4 +1,4 @@
-// provided by Vivek Vishwanath
+package com.lambdaschool.javatodos.javatodos;// provided by Vivek Vishwanath
 
 import com.lambdaschool.javatodos.javatodos.model.Role;
 import com.lambdaschool.javatodos.javatodos.model.Todo;
