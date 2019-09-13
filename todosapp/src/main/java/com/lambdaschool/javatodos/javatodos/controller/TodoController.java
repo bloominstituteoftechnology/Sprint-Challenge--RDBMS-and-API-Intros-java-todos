@@ -45,14 +45,13 @@ public class TodoController
 
     @GetMapping(value = "/username/{userName}",
             produces = {"application/json"})
-    public ResponseEntity<?> findQuoteByUserName(
+    public ResponseEntity<?> findTodoByUserName(
             @PathVariable
                     String userName)
     {
         List<Todo> theTodos = todoService.findByUserName(userName);
         return new ResponseEntity<>(theTodos, HttpStatus.OK);
     }
-
 
 
     @PostMapping(value = "/todo")
