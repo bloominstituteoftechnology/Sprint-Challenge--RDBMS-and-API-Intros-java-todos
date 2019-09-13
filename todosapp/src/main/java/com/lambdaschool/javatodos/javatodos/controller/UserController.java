@@ -1,5 +1,6 @@
 package com.lambdaschool.javatodos.javatodos.controller;
 
+import com.lambdaschool.javatodos.javatodos.model.Todo;
 import com.lambdaschool.javatodos.javatodos.model.User;
 import com.lambdaschool.javatodos.javatodos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,7 +55,7 @@ public class UserController
 
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping(value = "/add", consumes = {"application/json"}, produces = {"application/json"})
+    @PostMapping(value = "/", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody
                                                 User newuser) throws URISyntaxException
     {
@@ -90,4 +92,19 @@ public class UserController
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(value = "/mine", produces = {"application/json"})
+    public ResponseEntity<?> getMyUserName(Authentication authentication)
+    {
+        return new ResponseEntity<>(userService.findUserByName(authentication.getName()), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/todo/{userId}", produces = {"application/json"})
+    public ResponseEntity<?> newTodoToUser(@RequestBody String todo, @PathVariable long userId)
+    {
+        User user = userService.findUserById(userId);
+        Todo newTodo = new Todo(todo, new Date(), user);
+        return new ResponseEntity<>(null, null, HttpStatus.OK);
+    }
+
 }
