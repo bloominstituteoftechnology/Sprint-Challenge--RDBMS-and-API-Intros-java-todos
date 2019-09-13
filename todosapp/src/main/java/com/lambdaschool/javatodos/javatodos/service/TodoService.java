@@ -8,7 +8,7 @@ public interface TodoService
 {
     List<Todo> findAll();
 
-    Todo findById();
+    Todo findById(long id);
 
     List<Todo> findByUserName (String username);
 
