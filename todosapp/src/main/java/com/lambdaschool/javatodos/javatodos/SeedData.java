@@ -1,8 +1,17 @@
 // provided by Vivek Vishwanath
 
+import com.lambdaschool.javatodos.javatodos.model.Role;
+import com.lambdaschool.javatodos.javatodos.model.Todo;
+import com.lambdaschool.javatodos.javatodos.model.User;
+import com.lambdaschool.javatodos.javatodos.model.UserRoles;
+import com.lambdaschool.javatodos.javatodos.repository.RoleRepository;
+import com.lambdaschool.javatodos.javatodos.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 @Transactional
 @Component
