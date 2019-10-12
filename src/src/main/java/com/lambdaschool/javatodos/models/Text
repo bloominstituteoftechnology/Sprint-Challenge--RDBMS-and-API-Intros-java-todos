@@ -1,0 +1,41 @@
+The table layouts are as follows:
+
+All tables should have audit fields / columns - createby createddate modifiedby modifieddate
+
+Note these are the minimum fields required. More is okay.
+
+TODO
+
+todoid primary key, not null long
+
+description string, not null
+datestarted datetime
+userid foreign key (one user to many todos) not null
+
+completed boolean
+
+USERS
+
+userid primary key, not null long
+username string, not null unique
+primaryemail string, not null unique
+password string, not null
+
+ROLES
+
+roleid primary key, not null long
+rolename string not null unique
+
+USERROLES
+
+roleid foreign key to role
+userid foreign key to user
+
+  // http://localhost:2019/users/mine
+    @GetMapping(value = "/mine",
+            produces = {"application/json"})
+    public ResponseEntity<?> getMyTodo(Authentication authentication)
+    {
+        User user = userService.findByName(authentication.getName());
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
