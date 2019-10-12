@@ -7,32 +7,26 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "userroles",
-       //when you combine two columns you want to make sure there is uniqueness
-       uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
-//serializable is needed to make json objects because we have a composite key
+@Table(name = "userroles")
 public class UserRoles extends Auditable implements Serializable
 {
-    //composite key is a key made our of two foreign keys
     @Id
     @ManyToOne
-    //foreign key
     @JoinColumn(name = "userid")
-    @JsonIgnoreProperties("userroles")
+    @JsonIgnoreProperties("userRoles")
     private User user;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "roleid")
-    @JsonIgnoreProperties("userroles")
+    @JsonIgnoreProperties("userRoles")
     private Role role;
 
     public UserRoles()
     {
     }
 
-    public UserRoles(User user,
-                     Role role)
+    public UserRoles(User user, Role role)
     {
         this.user = user;
         this.role = role;
@@ -58,7 +52,6 @@ public class UserRoles extends Auditable implements Serializable
         this.role = role;
     }
 
-    //need to override equals when ever we have serializable
     @Override
     public boolean equals(Object o)
     {
@@ -74,17 +67,9 @@ public class UserRoles extends Auditable implements Serializable
         return getUser().equals(userRoles.getUser()) && getRole().equals(userRoles.getRole());
     }
 
-    //need to override hashcode when ever we have serializable
     @Override
     public int hashCode()
     {
-        return Objects.hash(getUser(),
-                            getRole());
-    }
-
-    @Override
-    public String toString()
-    {
-        return "UserRoles{" + "user=" + user.getUserid() + ", role=" + role.getRoleid() + '}';
+        return Objects.hash(getUser(), getRole());
     }
 }
