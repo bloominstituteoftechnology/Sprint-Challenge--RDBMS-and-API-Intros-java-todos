@@ -19,7 +19,7 @@ public class User {
     private String username;
     private String primaryemail;
     private String password; //stored in plain text for demo purposes
-    ///////////Foreign Key////////////////
+    ///////////Foreign Keys////////////////
     /*For User relationship with Todos, One user Many todos*/
     @OneToMany(
             //Mapped by essential means what does the other object call you, thanks Vivek!
@@ -29,6 +29,8 @@ public class User {
     )
             @JsonIgnoreProperties("user")//this prevents a never ending loop, must be the same name as the mappedBy above and the same name that the Tod0 class calls it
     List<Todo> todos = new ArrayList<>();
+
+
 
 
     ////////////////BOILER PLATE//////////////////////////////////
