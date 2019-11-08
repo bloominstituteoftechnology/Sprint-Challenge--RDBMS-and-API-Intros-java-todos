@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
   //     newUser.getRoles().add(newRole);
   // }
     for(Todo td: user.getTodos()){
-        Todo newTodo = new Todo(td.getDescription(), td.getDatestarted(), td.isCompleted());
+        Todo newTodo = new Todo(td.getDescription(), td.getDatestarted(), td.iscompleteed, newUser);
         newUser.getTodos().add(newTodo);
     }
 

@@ -22,6 +22,8 @@ public class User {
 
 
 
+
+
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -38,10 +40,11 @@ public class User {
     List<Role> roles = new ArrayList<>();
 
     public User(){}
-    public User(String username, String primaryemail, String password, Todo todo, List<Todo> todos) {
+    public User(String username, String primaryemail, String password) {
         this.username = username;
         this.primaryemail = primaryemail;
         this.password = password;
+
 
 
     }
@@ -97,4 +100,9 @@ public class User {
     public List<Todo> getTodos() {
         return todos = new ArrayList<>();
     }
+    public void addTodo(Todo todo) {
+        todos.add(todo);
+    }
+
+
 }
