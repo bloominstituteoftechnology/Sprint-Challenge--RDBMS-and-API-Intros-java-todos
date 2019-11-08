@@ -2,24 +2,33 @@ package com.versilistyson.sprint14assignment.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ROLE")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @Column(nullable = false)
+    private long id;
 
     @NotNull
     @Column(nullable = false, unique = true)
-    String name;
+    private String name;
 
+
+    @ManyToMany(
+            mappedBy = "rolee"
+    )
+    private List<User> users = new ArrayList<>();
 
     public Role() {
 
     }
 
     public Role(@NotNull String name) {
+
         this.name = name;
     }
 
@@ -37,5 +46,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

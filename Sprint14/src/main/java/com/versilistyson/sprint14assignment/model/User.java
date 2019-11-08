@@ -2,7 +2,6 @@ package com.versilistyson.sprint14assignment.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,7 +26,7 @@ public class User {
             name = "todo_items"
     )
     @OneToMany(mappedBy = "user_id")
-    public Set<TodoItem> todoItems;
+    public Set<Todo> todoItems;
 
     @ManyToMany
     @JoinTable(
@@ -41,7 +40,7 @@ public class User {
 
     }
 
-    public User(String username, String primaryEmail, @NotNull String password, Set<TodoItem> todoItems, Set<Role> roles) {
+    public User(String username, String primaryEmail, @NotNull String password, Set<Todo> todoItems, Set<Role> roles) {
         this.username = username;
         this.primaryEmail = primaryEmail;
         this.password = password;
@@ -81,11 +80,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<TodoItem> getTodoItems() {
+    public Set<Todo> getTodoItems() {
         return todoItems;
     }
 
-    public void setTodoItems(Set<TodoItem> todoItems) {
+    public void setTodoItems(Set<Todo> todoItems) {
         this.todoItems = todoItems;
     }
 

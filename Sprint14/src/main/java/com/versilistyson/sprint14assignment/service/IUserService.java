@@ -1,8 +1,7 @@
 package com.versilistyson.sprint14assignment.service;
 
-import com.versilistyson.sprint14assignment.model.TodoItem;
+import com.versilistyson.sprint14assignment.model.Todo;
 import com.versilistyson.sprint14assignment.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,12 +11,12 @@ public interface IUserService {
 
     List<User> findAll();
 
-    User findUserById(long id);
+    User findById(long id);
 
-    User addUser();
+    User save(User newUser);
 
-    TodoItem addTodo(long id);
+    Todo saveTodo(Todo newTodoItem);
 
-    User deleteUser(long id);
+    User delete(long id);
 
 }

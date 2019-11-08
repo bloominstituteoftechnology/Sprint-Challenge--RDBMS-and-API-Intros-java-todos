@@ -6,15 +6,16 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
-@Table(name = "TODO_ITEM")
-public class TodoItem {
+@Table(name = "TODO")
+public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    long id;
+    @Column(nullable = false)
+    private long id;
 
     @NotNull
     @Column(
@@ -23,8 +24,10 @@ public class TodoItem {
     )
     String description;
 
+    private Date datetime;
+
     @Column(name = "completed")
-    boolean isCompleted;
+    private boolean isCompleted;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -33,12 +36,12 @@ public class TodoItem {
             referencedColumnName = "id",
             nullable = false
     )
-    User user_id;
+    private User user_id;
 
-    public TodoItem() {
+    public Todo() {
     }
 
-    public TodoItem(@NotNull String description, boolean isCompleted, @NotNull User user_id) {
+    public Todo(@NotNull String description, boolean isCompleted, @NotNull User user_id) {
         this.description = description;
         this.isCompleted = isCompleted;
         this.user_id = user_id;
@@ -74,5 +77,13 @@ public class TodoItem {
 
     public void setUser_id(User user_id) {
         this.user_id = user_id;
+    }
+
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
 }
