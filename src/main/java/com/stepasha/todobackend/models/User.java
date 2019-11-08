@@ -20,10 +20,11 @@ public class User {
 
 
 
-   // @OneToMany(mappedBy = "todos",
- //   cascade = CascadeType.ALL,
-   // orphanRemoval = true )
-   // private List<Todo> todo = new ArrayList<>();
+   @OneToMany(mappedBy = "user",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true )
+   @JsonIgnoreProperties("user")
+    private List<Todo> todo = new ArrayList<>();
 
     public User(){}
     public User(String username, String primaryemail, String password, Todo todo, List<Todo> todos) {
@@ -58,6 +59,13 @@ public class User {
         this.password = password;
     }
 
+    public List<Todo> getTodo() {
+        return todo;
+    }
 
+    public void setTodo(List<Todo> todo) {
+        this.todo = todo;
+    }
+    //trying to set a role
 
 }
