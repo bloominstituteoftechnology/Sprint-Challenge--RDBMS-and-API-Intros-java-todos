@@ -61,6 +61,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(long id) {
-
+        if (findUserById(id) != null){
+            userRepo.deleteById(id);
+        }
     }
 }
