@@ -3,36 +3,34 @@ package com.stepasha.todobackend.services;
 import com.stepasha.todobackend.models.Todo;
 import com.stepasha.todobackend.repositories.TodoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
-public class TodoServiceImpl implements TodoService {
+@Transactional
+@Service(value = "todoService")
+public class TodoServiceImpl implements TodoService{
     @Autowired
-    TodoRepo todoRepo;
+    private TodoRepo todoRepository;
 
-    @Autowired
-    UserService userService;
-
+    @Transactional
     @Override
-    public Todo updateTodo(long todoId, Todo todo) {
-        Todo getTodo = todoRepo.findById(todoId).orElseThrow(() -> new EntityNotFoundException(Long.toString(todoId)));
-
-        if (todo.getUser() != null) {
-            getTodo.setUser(userService.findUserById(todo.getUser().getUserid()));
-        }
+    public Todo updateTodo(long todoid, Todo todo) {
+        Todo existingTodo = todoRepository.findById(todoid).orElseThrow(() ->
+                new EntityNotFoundException(Long.toString(todoid)));
 
         if (todo.getDescription() != null) {
-            getTodo.setDescription(todo.getDescription());
+            existingTodo.setDescription(todo.getDescription());
         }
 
         if (todo.getDatestarted() != null) {
-            getTodo.setDatestarted(todo.getDatestarted());
+            existingTodo.setDatestarted(todo.getDatestarted());
         }
 
-        if (todo.isCompleted()) {
-            getTodo.setCompleted(todo.isCompleted());
-        }
+        existingTodo.setCompleted(todo.isCompleted());
 
-        return todoRepo.save(getTodo);
+        return todoRepository.save(existingTodo);
     }
+
 }
