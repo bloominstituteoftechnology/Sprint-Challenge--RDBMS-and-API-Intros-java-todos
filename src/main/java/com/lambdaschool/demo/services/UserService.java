@@ -9,5 +9,8 @@ public interface UserService {
 
     List<User> getAllUsers();
     Todo getUserTodosById(long id);
-    
+
+    User addUser(User user);
+    void deleteUser(long id);
+
 }
