@@ -24,11 +24,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role save(Role role) {
-        if (role.getUser().size() > 0){
-            throw new EntityNotFoundException("Roles cant connect to users");
+        if (role.getUsers().size() >0){
+            throw new EntityNotFoundException("users and roles are not connecting");
         }
         Role newRole = new Role();
-        newRole.setUser(new ArrayList<>());
+        newRole.setUsers(new ArrayList<>());
         newRole.setRolename(role.getRolename());
         return roleRepo.save(newRole);
     }

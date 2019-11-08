@@ -15,16 +15,27 @@ public class User {
     private long userid;
     @Column(nullable = true)
     private String username;
+    @Column(nullable = false)
     private String primaryemail;
+    @Column(nullable = false)
     private String password;
 
 
 
-   @OneToMany(mappedBy = "user",
-    cascade = CascadeType.ALL,
-    orphanRemoval = true )
-   @JsonIgnoreProperties("user")
-    private List<Todo> todo = new ArrayList<>();
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnoreProperties("user")
+    private List<Todo> todos = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "userroles",
+            joinColumns = @JoinColumn(name = "userid"),
+            inverseJoinColumns = @JoinColumn(name = "roleid")
+    )
+    @JsonIgnoreProperties("users")
+    List<Role> roles = new ArrayList<>();
 
     public User(){}
     public User(String username, String primaryemail, String password, Todo todo, List<Todo> todos) {
@@ -32,7 +43,7 @@ public class User {
         this.primaryemail = primaryemail;
         this.password = password;
 
-        this.todo = todos;
+
     }
 
     public String getUsername() {
@@ -59,13 +70,7 @@ public class User {
         this.password = password;
     }
 
-    public List<Todo> getTodo() {
-        return todo;
-    }
 
-    public void setTodo(List<Todo> todo) {
-        this.todo = todo;
-    }
     //trying to set a role
 
     public long getUserid() {

@@ -11,30 +11,36 @@ import java.util.List;
 @Table(name = "todos")
 public class Todo {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = true)
     private long todoid;
-    private String description;
-    private String datestarted;
-    @Transient
-    public boolean iscompleted = false;
 
+    @Column(nullable = false)
+    private String description;
+
+    private Date datestarted;
+    private boolean completed = false;
 
     @ManyToOne
-    @JoinColumn(name = "userid")
-    @JsonIgnoreProperties({"users"})
+    @JoinColumn(name = "userid", nullable = false)
     private User user;
 
+    public Todo() {
+    }
 
-    public Todo(){}
-    public Todo(String description, String datestarted, boolean completed) {
-
+    public Todo(String description, Date datestarted, boolean completed) {
         this.description = description;
         this.datestarted = datestarted;
-        this.iscompleted = completed;
+        this.completed = completed;
     }
+
+    public long getTodoid() {
+        return todoid;
+    }
+
+    /*public void setTodoid(long todoid) {
+        this.todoid = todoid;
+    }*/
 
     public String getDescription() {
         return description;
@@ -44,21 +50,20 @@ public class Todo {
         this.description = description;
     }
 
-    public String getDatestarted() {
+    public Date getDatestarted() {
         return datestarted;
     }
 
-    public void setDatestarted(String datestarted) {
+    public void setDatestarted(Date datestarted) {
         this.datestarted = datestarted;
     }
 
     public boolean isCompleted() {
-        return iscompleted;
+        return completed;
     }
 
     public void setCompleted(boolean completed) {
-        iscompleted = true;
-        this.iscompleted = completed;
+        this.completed = completed;
     }
 
     public User getUser() {

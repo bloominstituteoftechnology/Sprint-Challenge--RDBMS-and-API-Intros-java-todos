@@ -39,11 +39,8 @@ public class UserServiceImpl implements UserService {
     newUser.setUsername(user.getUsername());
     newUser.setPrimaryemail(user.getPrimaryemail());
     newUser.setPassword(user.getPassword());
-    for(Todo td: user.getTodo()){
-        Todo newTodo = new Todo(td.getDescription(), td.getDatestarted(), td.isCompleted());
-        newUser.getTodo().add(newTodo);
-    }
-    
+
+
     return userRepo.save(newUser);
 }
 

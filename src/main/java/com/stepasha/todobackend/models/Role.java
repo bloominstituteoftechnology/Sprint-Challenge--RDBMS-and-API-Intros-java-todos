@@ -17,11 +17,13 @@ public class Role {
     @Column(nullable = false)
     private String rolename;
 
-    @ManyToMany
+ /*   @ManyToMany
     @JoinTable(name = "users",
     joinColumns = @JoinColumn(name = "userid"),
             inverseJoinColumns = @JoinColumn(name = "todos"))
-    List<User> user = new ArrayList<>();
+    List<User> user = new ArrayList<>();*/
+ @ManyToMany(mappedBy = "roles")
+ private List<User> users = new ArrayList<>();
 
     public Role(){}
     public Role(String rolename) {
@@ -36,11 +38,11 @@ public class Role {
         this.rolename = rolename;
     }
 
-    public List<User> getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(List<User> user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }
