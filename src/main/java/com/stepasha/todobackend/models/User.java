@@ -15,7 +15,7 @@ public class User {
     private long userid;
     @Column(nullable = true)
     private String username;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String primaryemail;
   //  @Column(nullable = false)
     private String password;
