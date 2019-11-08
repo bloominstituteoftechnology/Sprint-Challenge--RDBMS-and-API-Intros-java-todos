@@ -18,7 +18,8 @@ public class Todo {
     private String description;
     private Date datestarted;
     @Transient
-    public boolean completed = false;
+    public boolean iscompleted = false;
+    private boolean completed;
 
     @ManyToOne
     @JoinColumn(name = "userid")
@@ -51,10 +52,11 @@ public class Todo {
     }
 
     public boolean isCompleted() {
-        return completed;
+        return iscompleted;
     }
 
     public void setCompleted(boolean completed) {
+        iscompleted = true;
         this.completed = completed;
     }
 
