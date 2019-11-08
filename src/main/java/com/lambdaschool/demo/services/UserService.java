@@ -11,7 +11,7 @@ public interface UserService {
 
     User getUserTodosById(long id);
     User addUser(User user);
-    User addTodoToUer(Todo todo, long id );
+    User addTodoToUser(Todo todo, long id );
     void deleteUser(long id);
 
 }

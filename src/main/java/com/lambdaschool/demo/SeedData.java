@@ -2,6 +2,7 @@ package com.lambdaschool.demo;
 
 
 import com.lambdaschool.demo.models.Role;
+import com.lambdaschool.demo.models.Todo;
 import com.lambdaschool.demo.models.User;
 import com.lambdaschool.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

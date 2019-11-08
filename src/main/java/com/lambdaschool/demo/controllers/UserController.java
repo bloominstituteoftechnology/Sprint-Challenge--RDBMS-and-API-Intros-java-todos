@@ -1,5 +1,6 @@
 package com.lambdaschool.demo.controllers;
 
+import com.lambdaschool.demo.models.Todo;
 import com.lambdaschool.demo.models.User;
 import com.lambdaschool.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +22,21 @@ public class UserController {
     private UserService userService;
 
 
-    //Get http://localhost:2019/users/users
+    //Get http://localhost:2019/users/users return all of the users and their todos
     @GetMapping(value = "users", produces = {"application/json"})
     public ResponseEntity<?> listAllUsers(){
         List<User> myUsers = userService.getAllUsers();
         return new ResponseEntity<>(myUsers, HttpStatus.OK);
     }
 
-    //Get http://localhost:2019/users/user/{userid}
+    //Get http://localhost:2019/users/user/{userid} return the user and their todos based off of id
     @GetMapping(value = "/user/{userid}", produces = {"application/json"})
     public ResponseEntity<?> findUserTodosById(@PathVariable long userid){//join table to find user tod0?
         User myUser = userService.getUserTodosById(userid);
         return new ResponseEntity<>(myUser, HttpStatus.OK);
     }
 
-    //Post http://localhost:2019/users/user
+    //Post http://localhost:2019/users/user adds a user
     @PostMapping (value = "/user", consumes = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newUser){
         newUser = userService.addUser(newUser);
@@ -48,8 +49,9 @@ public class UserController {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    /*//Post http://localhost:2019/users/tod0/{userid}
-    @PostMapping*/
+   /* //Post http://localhost:2019/users/tod0/{userid}
+    @PostMapping(value = "/todo/{userid}", consumes = {"application/json"})
+    public ResponseEntity<?> addNewTodoToUser(@Valid @RequestBody Todo newTodo)*/
 
 
 

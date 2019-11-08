@@ -3,6 +3,8 @@ package com.lambdaschool.demo.models;
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "todos")
@@ -11,6 +13,7 @@ public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long todoid;
+
 
     private String description;
     private DateFormat datestarted = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//potentially hazardous
@@ -22,12 +25,14 @@ public class Todo {
     @JoinColumn(name = "userid")
     private User user;//User is the one and user has many todos
 
+
+
 ////////////////BOILER PLATE//////////////////////////////////
     public Todo(){
         //I hate that this is empty, but it has to be so
     }
 
-    public Todo(String description, DateFormat datestarted, Boolean completed, User user) {
+    public Todo(String description, DateFormat datestarted, Boolean completed, User user, List<User> users) {
         this.description = description;
         this.datestarted = datestarted;
         this.completed = completed;
@@ -73,4 +78,5 @@ public class Todo {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

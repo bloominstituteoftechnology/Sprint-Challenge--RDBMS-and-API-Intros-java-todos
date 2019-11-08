@@ -27,19 +27,29 @@ public class User {
             cascade = CascadeType.ALL, //saves, updates, deletes items without you having to individually do them yourself
             orphanRemoval = true //if user goes do I want the todos in my list to go? the answer is yes
     )
-            @JsonIgnoreProperties("user")//this prevents a never ending loop, must be the same name as the mappedBy above and the same name that the Tod0 class calls it
-    List<Todo> todos = new ArrayList<>();
+    @JsonIgnoreProperties("user")//this prevents a never ending loop, must be the same name as the mappedBy above and the same name that the Tod0 class calls it
+           private List<Todo> todos = new ArrayList<>();
 
-
+    @ManyToMany
+    @JoinTable(name = "userroles",
+            joinColumns = @JoinColumn(name = "userid"),
+            inverseJoinColumns = @JoinColumn(name = "roleid")
+    )
+    @JsonIgnoreProperties("users")
+    private List<Todo> roles = new ArrayList<>();
 
 
     ////////////////BOILER PLATE//////////////////////////////////
-    public User (){}
+    public User() {
+    }
 
-    public User(String username, String primaryemail, String password) {
+
+    public User(String username, String primaryemail, String password, List<Todo> todos, List<Todo> roles) {
         this.username = username;
         this.primaryemail = primaryemail;
         this.password = password;
+        this.todos = todos;
+        this.roles = roles;
     }
 
     public long getUserid() {
@@ -72,5 +82,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Todo> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<Todo> todos) {
+        this.todos = todos;
+    }
+
+    public List<Todo> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Todo> roles) {
+        this.roles = roles;
     }
 }
