@@ -23,7 +23,7 @@ public class Todo {
     @ManyToOne
     @JoinColumn(name = "userid",
             nullable = false)
-    @JsonIgnoreProperties("userid")
+   // @JsonIgnoreProperties("todos")
     private User user;
 
     public Todo(){}

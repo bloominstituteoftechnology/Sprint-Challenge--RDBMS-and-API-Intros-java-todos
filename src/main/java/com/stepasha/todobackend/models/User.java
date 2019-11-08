@@ -12,6 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private long userid;
     @Column(nullable = true)
     private String username;
@@ -21,8 +22,9 @@ public class User {
     private String password;
 
 
-
-
+    public void setTodos(List<Todo> todos) {
+        this.todos = todos;
+    }
 
     @OneToMany(mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -98,7 +100,7 @@ public class User {
     }
 
     public List<Todo> getTodos() {
-        return todos = new ArrayList<>();
+        return todos;
     }
     public void addTodo(Todo todo) {
         todos.add(todo);

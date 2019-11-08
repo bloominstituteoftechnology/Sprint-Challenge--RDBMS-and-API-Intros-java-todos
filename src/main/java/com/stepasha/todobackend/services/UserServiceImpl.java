@@ -3,6 +3,7 @@ package com.stepasha.todobackend.services;
 import com.stepasha.todobackend.models.Role;
 import com.stepasha.todobackend.models.Todo;
 import com.stepasha.todobackend.models.User;
+import com.stepasha.todobackend.repositories.TodoRepo;
 import com.stepasha.todobackend.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    TodoRepo todoRepo;
 
     @Override
     public List<User> findAll() {
@@ -65,10 +68,16 @@ public class UserServiceImpl implements UserService {
         if (user.getPassword() != null) {
             currentUser.setPassword(user.getPassword());
         }
+        if (user.getTodos() != null) {
+            for (Todo td : user.getTodos()) {
+                Todo newTodo = new Todo(td.getDescription(), td.getDatestarted(), td.iscompleteed, currentUser);
+                currentUser.getTodos().add(newTodo);
+            }
+        }
     }
-    return userRepo.save(currentUser);
-}
+        return userRepo.save(currentUser);
 
+}
     @Override
     public void delete(long id) {
         if (findUserById(id) != null){
