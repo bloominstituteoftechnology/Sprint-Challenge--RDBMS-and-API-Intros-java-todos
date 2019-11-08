@@ -50,6 +50,15 @@ public class UserController {
         responseHeader.setLocation(newUserUri);
         return new ResponseEntity<>(null, responseHeader, HttpStatus.CREATED);
     }
+    // http://localhost:2020/users/users/1
+    @PutMapping(value = "/users/{userid}",
+    consumes = {"application/json"})
+    public ResponseEntity<?> updateUser(@RequestBody User updateUSer,
+                                        @PathVariable long userid){
+        userService.update(updateUSer, userid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
 
 
 }

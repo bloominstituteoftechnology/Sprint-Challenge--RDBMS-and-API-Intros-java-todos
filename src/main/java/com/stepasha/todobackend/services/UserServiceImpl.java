@@ -43,11 +43,21 @@ public class UserServiceImpl implements UserService {
 
     return userRepo.save(newUser);
 }
-
+@Transactional
     @Override
     public User update(User user, long id) {
-        return null;
+    User currentUser = findUserById(id);
+    if (user.getUsername() != null) {
+        currentUser.setUsername(user.getUsername());
     }
+    if (user.getPrimaryemail() != null) {
+        currentUser.setPrimaryemail(user.getPrimaryemail());
+        if (user.getPassword() != null) {
+            currentUser.setPassword(user.getPassword());
+        }
+    }
+    return userRepo.save(currentUser);
+}
 
     @Override
     public void delete(long id) {
