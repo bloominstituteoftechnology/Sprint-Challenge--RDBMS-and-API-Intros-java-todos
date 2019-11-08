@@ -1,13 +1,16 @@
 //package com.stepasha.todobackend;
 //
 //
+//import com.stepasha.todobackend.models.Role;
+//import com.stepasha.todobackend.models.Todo;
+//import com.stepasha.todobackend.models.User;
+//import com.stepasha.todobackend.services.RoleService;
 //import com.stepasha.todobackend.services.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.stereotype.Component;
 //import org.springframework.transaction.annotation.Transactional;
 //
-//import java.util.ArrayList;
 //import java.util.Date;
 //
 //@Transactional
@@ -30,9 +33,8 @@
 //        r2 = roleService.save(r2);
 //        r3 = roleService.save(r3);
 //
-//        User u1 = new User("admin",
-//                "password",
-//                "admin@lambdaschool.local");
+//        User u1 = new User(
+//        );
 //        u1.addRole(r1);
 //        u1.addRole(r2);
 //        u1.addRole(r3);
@@ -51,9 +53,8 @@
 //
 //        userService.save(u1);
 //
-//        User u2 = new User("cinnamon",
-//                "1234567",
-//                "cinnamon@lambdaschool.local");
+//        User u2 = new User(
+//        );
 //        u2.addRole(r2);
 //        u2.addRole(r3);
 //        u2.getTodos()
@@ -67,22 +68,19 @@
 //        userService.save(u2);
 //
 //        // user
-//        User u3 = new User("barnbarn",
-//                "ILuvM4th!",
-//                "barnbarn@lambdaschool.local");
+//        User u3 = new User(
+//        );
 //        u3.addRole(r2);
 //        userService.save(u3);
 //
 //
-//        User u4 = new User("puttat",
-//                "password",
-//                "puttat@school.lambda");
+//        User u4 = new User(
+//        );
 //        u4.addRole(r2);
 //        userService.save(u4);
 //
-//        User u5 = new User("misskitty",
-//                "password",
-//                "misskitty@school.lambda");
+//        User u5 = new User(
+//        );
 //        userService.save(u5);
 //    }
 //}

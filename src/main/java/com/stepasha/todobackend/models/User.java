@@ -17,7 +17,7 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String primaryemail;
-    @Column(nullable = false)
+  //  @Column(nullable = false)
     private String password;
 
 
@@ -79,5 +79,22 @@ public class User {
 
     public void setUserid(long userid) {
         this.userid = userid;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role r1) {
+        roles.add(r1);
+        r1.getUsers().add(this);
+    }
+
+    public List<Todo> getTodos() {
+        return todos = new ArrayList<>();
     }
 }

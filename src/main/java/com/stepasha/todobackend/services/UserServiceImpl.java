@@ -40,6 +40,16 @@ public class UserServiceImpl implements UserService {
     newUser.setPrimaryemail(user.getPrimaryemail());
     newUser.setPassword(user.getPassword());
 
+  // for (Role r: user.getRoles()){
+  //     Role newRole = roleService.findRoleById(r.getRoleid());
+  //     newUser.getRoles().add(newRole);
+  // }
+    for(Todo td: user.getTodos()){
+        Todo newTodo = new Todo(td.getDescription(), td.getDatestarted(), td.isCompleted());
+        newUser.getTodos().add(newTodo);
+    }
+
+
 
     return userRepo.save(newUser);
 }

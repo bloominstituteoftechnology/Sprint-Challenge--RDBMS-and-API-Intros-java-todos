@@ -45,4 +45,12 @@ public class Role {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+    public long getRoleid() {
+        return roleid;
+    }
+
+    public void setRoleid(long roleid) {
+        this.roleid = roleid;
+    }
 }
