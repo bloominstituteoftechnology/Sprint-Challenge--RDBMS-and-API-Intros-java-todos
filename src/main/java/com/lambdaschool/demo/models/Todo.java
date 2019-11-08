@@ -17,6 +17,7 @@ public class Todo {
     private Boolean completed;
 
     ///////////Foreign Key////////////////
+    /*For Todos relationship with User, Many todos one user*/
     @ManyToOne
     @JoinColumn(name = "userid")
     private User user;//User is the one and user has many todos
