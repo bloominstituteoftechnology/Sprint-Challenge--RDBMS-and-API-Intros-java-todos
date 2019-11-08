@@ -3,6 +3,7 @@ package com.stepasha.todobackend.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -10,16 +11,16 @@ import java.util.List;
 @Table(name = "todos")
 public class Todo {
 
-    Date date = new Date();
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = true)
     private long todoid;
     private String description;
-    private Date datestarted;
+    private String datestarted;
     @Transient
     public boolean iscompleted = false;
-    private boolean completed;
+
 
     @ManyToOne
     @JoinColumn(name = "userid")
@@ -27,12 +28,12 @@ public class Todo {
     private User user;
 
 
-    public Todo(String description, Date datestarted, boolean completed){}
-    public Todo(Date date, String description, Date datestarted, boolean completed) {
-        this.date = date;
+    public Todo(){}
+    public Todo(String description, String datestarted, boolean completed) {
+
         this.description = description;
         this.datestarted = datestarted;
-        this.completed = completed;
+        this.iscompleted = completed;
     }
 
     public String getDescription() {
@@ -43,11 +44,11 @@ public class Todo {
         this.description = description;
     }
 
-    public Date getDatestarted() {
+    public String getDatestarted() {
         return datestarted;
     }
 
-    public void setDatestarted(Date datestarted) {
+    public void setDatestarted(String datestarted) {
         this.datestarted = datestarted;
     }
 
@@ -57,7 +58,7 @@ public class Todo {
 
     public void setCompleted(boolean completed) {
         iscompleted = true;
-        this.completed = completed;
+        this.iscompleted = completed;
     }
 
     public User getUser() {

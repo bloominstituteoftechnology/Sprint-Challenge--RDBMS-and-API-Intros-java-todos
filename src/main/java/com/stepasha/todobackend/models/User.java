@@ -13,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String username;
     private String primaryemail;
     private String password;
@@ -32,7 +32,7 @@ public class User {
         this.primaryemail = primaryemail;
         this.password = password;
 
-        //this.todo = todos;
+        this.todo = todos;
     }
 
     public String getUsername() {
@@ -68,4 +68,11 @@ public class User {
     }
     //trying to set a role
 
+    public long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(long userid) {
+        this.userid = userid;
+    }
 }

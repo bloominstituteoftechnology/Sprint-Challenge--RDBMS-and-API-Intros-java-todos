@@ -4,10 +4,14 @@ package com.stepasha.todobackend.controllers;
 import com.stepasha.todobackend.models.User;
 import com.stepasha.todobackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,5 +35,21 @@ public class UserController {
         User idUser = userService.findUserById(id);
         return new ResponseEntity<>(idUser, HttpStatus.OK);
     }
+    // http://localhost:2020/users/users
+    @PostMapping(value = "/users",
+    consumes = {"application/json"})
+    public ResponseEntity<?> addNewUser(
+            @Valid
+            @RequestBody User newUser){
+        newUser = userService.save(newUser);
+        HttpHeaders responseHeader = new HttpHeaders();
+        URI newUserUri = ServletUriComponentsBuilder.fromCurrentRequest()
+              .path("/{userid}")
+              .buildAndExpand(newUser.getUserid())
+              .toUri();
+        responseHeader.setLocation(newUserUri);
+        return new ResponseEntity<>(null, responseHeader, HttpStatus.CREATED);
+    }
+
 
 }
