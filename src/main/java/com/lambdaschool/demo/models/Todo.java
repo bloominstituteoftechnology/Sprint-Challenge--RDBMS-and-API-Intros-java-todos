@@ -17,6 +17,9 @@ public class Todo {
 
     private String description;
     private DateFormat datestarted = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//potentially hazardous
+
+    @Transient
+    public boolean completedSwitch; //Publicly available switch
     private Boolean completed;
 
     ///////////Foreign Key////////////////
@@ -37,6 +40,11 @@ public class Todo {
         this.datestarted = datestarted;
         this.completed = completed;
         this.user = user;
+        this.completed = false;
+    }
+
+    public Boolean CompletedMethodSwitch(){
+        return completed;
     }
 
     public long getTodoid() {
@@ -68,6 +76,7 @@ public class Todo {
     }
 
     public void setCompleted(Boolean completed) {
+        completedSwitch = true;
         this.completed = completed;
     }
 

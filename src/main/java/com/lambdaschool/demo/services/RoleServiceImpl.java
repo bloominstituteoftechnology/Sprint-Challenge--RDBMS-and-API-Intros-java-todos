@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Transactional
 @Service(value = "roleService")
@@ -23,7 +24,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role save(Role role) {
         Role newRole = new Role();
-        newRole.setUsers(role.getRolename());
+        newRole.setUsers(new ArrayList<>());
+        newRole.setRolename(role.getRolename());
         return roleRepo.save(newRole);
     }
 }

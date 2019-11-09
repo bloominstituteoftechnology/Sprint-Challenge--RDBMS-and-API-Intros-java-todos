@@ -20,18 +20,43 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Todo getTodoById(long id) {
-        return todorepos.findById(id).orElseThrow(()-> new EntityNotFoundException("Todo " + id + " not found"));
+        return todorepos.findById(id).orElseThrow(() -> new EntityNotFoundException("Todo " + id + " not found"));
     }
 
     @Override
-    public Todo updateTodo(Todo todo, long id) {
-        Todo currentTodo = getTodoById(id) ;
-       if(todo.getUser() != null){
+    public Todo save(Todo todo, long userid) {
+        Todo newTodo = new Todo();
+        newTodo.setDescription(todo.getDescription());//set get like John says
+        newTodo.setUser(todo.getUser());
+        newTodo.setDatestarted(todo.getDatestarted());
 
-       }
+        return todorepos.save(newTodo);
     }
 
 
+    @Transactional
+    @Override
+    public Todo updateTodo(Todo todo, long id) {
+        Todo updateTodo = getTodoById(id);
+
+        if(todo.getDatestarted()!=null){
+            updateTodo.setDatestarted(todo.getDatestarted());
+        }
+        if (todo.getDescription() != null) {
+            updateTodo.setDescription(todo.getDescription());
+
+        }
+        if (todo.getUser() != null) {
+            updateTodo.setUser(userService.getUserById(todo.getUser().getUserid()));
+
+        }
+
+        if (todo.completedSwitch) {
+            updateTodo.setCompleted(todo.CompletedMethodSwitch());
+        }
+
+        return todorepos.save(updateTodo);
+    }
 
 
 }

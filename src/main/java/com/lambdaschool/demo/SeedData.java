@@ -4,6 +4,7 @@ package com.lambdaschool.demo;
 import com.lambdaschool.demo.models.Role;
 import com.lambdaschool.demo.models.Todo;
 import com.lambdaschool.demo.models.User;
+import com.lambdaschool.demo.services.RoleService;
 import com.lambdaschool.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +16,8 @@ import java.util.Date;
 @Transactional
 @Component
 public class SeedData implements CommandLineRunner {
-   /* @Autowired
-    RoleService roleService;*/
+    @Autowired
+    RoleService roleService;
 
     @Autowired
     UserService userService;
@@ -28,9 +29,9 @@ public class SeedData implements CommandLineRunner {
         Role r2 = new Role("user");
         Role r3 = new Role("data");
 
-        r1 = roleService.addUser(r1);
-        r2 = roleService.addUser(r2);
-        r3 = roleService.addUser(r3);
+        r1 = roleService.save(r1);
+        r2 = roleService.save(r2);
+        r3 = roleService.save(r3);
 
         User u1 = new User("admin",
                 "password",
@@ -69,6 +70,7 @@ public class SeedData implements CommandLineRunner {
         userService.save(u2);
 
         // user
+        User t = new User("",)
         User u3 = new User("barnbarn",
                 "ILuvM4th!",
                 "barnbarn@lambdaschool.local");

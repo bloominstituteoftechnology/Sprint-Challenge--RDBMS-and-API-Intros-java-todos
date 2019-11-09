@@ -92,7 +92,7 @@ public class User {
 
     public void addRole(Role role){
 
-        role.add(role);
+        roles.add(role);
         role.getUsers().add(this);
     }
 
