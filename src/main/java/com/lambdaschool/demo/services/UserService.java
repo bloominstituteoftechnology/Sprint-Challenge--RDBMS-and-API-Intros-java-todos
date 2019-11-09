@@ -10,8 +10,12 @@ public interface UserService {
     List<User> getAllUsers();
 
     User getUserTodosById(long id);
-    User addUser(User user);
+
+    User save(User user);
     User addTodoToUser(Todo todo, long id );
-    void deleteUser(long id);
+
+
+
+    void delete(long id);
 
 }

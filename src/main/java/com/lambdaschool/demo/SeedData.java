@@ -10,7 +10,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 @Transactional
@@ -52,7 +51,7 @@ public class SeedData implements CommandLineRunner {
                         new Date(),
                         u1));
 
-        userService.addUser(u1);
+        userService.save(u1);
 
         User u2 = new User("cinnamon",
                 "1234567",
@@ -67,25 +66,25 @@ public class SeedData implements CommandLineRunner {
                 .add(new Todo("provide feedback to my instructor",
                         new Date(),
                         u2));
-        userService.addUser(u2);
+        userService.save(u2);
 
         // user
         User u3 = new User("barnbarn",
                 "ILuvM4th!",
                 "barnbarn@lambdaschool.local");
         u3.addRole(r2);
-        userService.addUser(u3);
+        userService.save(u3);
 
 
         User u4 = new User("puttat",
                 "password",
                 "puttat@school.lambda");
         u4.addRole(r2);
-        userService.addUser(u4);
+        userService.save(u4);
 
         User u5 = new User("misskitty",
                 "password",
                 "misskitty@school.lambda");
-        userService.addUser(u5);
+        userService.save(u5);
     }
 }

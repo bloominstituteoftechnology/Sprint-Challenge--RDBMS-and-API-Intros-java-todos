@@ -26,22 +26,24 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Todo getUserTodosById(long id) {
+    public User getUserTodosById(long id) {
         return null;
     }
 
     @Override
-    public User addUser(User user) {
+    public User save(User user) {
         return null;
     }
 
     @Override
-    public Todo addTodoToUer(Todo todo, long id) {
+    public User addTodoToUser(Todo todo, long id) {
         return null;
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void delete(long id) {
 
     }
+
+
 }

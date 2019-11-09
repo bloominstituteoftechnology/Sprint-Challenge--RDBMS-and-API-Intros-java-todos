@@ -1,6 +1,5 @@
 package com.lambdaschool.demo.controllers;
 
-import com.lambdaschool.demo.models.Todo;
 import com.lambdaschool.demo.models.User;
 import com.lambdaschool.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class UserController {
     //Post http://localhost:2019/users/user adds a user
     @PostMapping (value = "/user", consumes = {"application/json"})
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newUser){
-        newUser = userService.addUser(newUser);
+        newUser = userService.save(newUser);
 
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newRestaurantURI = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -49,9 +48,6 @@ public class UserController {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-   /* //Post http://localhost:2019/users/tod0/{userid}
-    @PostMapping(value = "/todo/{userid}", consumes = {"application/json"})
-    public ResponseEntity<?> addNewTodoToUser(@Valid @RequestBody Todo newTodo)*/
 
 
 
