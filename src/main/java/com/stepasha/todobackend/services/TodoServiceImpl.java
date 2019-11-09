@@ -2,35 +2,62 @@ package com.stepasha.todobackend.services;
 
 import com.stepasha.todobackend.models.Todo;
 import com.stepasha.todobackend.repositories.TodoRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 @Transactional
-@Service(value = "todoService")
-public class TodoServiceImpl implements TodoService{
+@Service(value = "todoService")//turns this into a bean
+public class TodoServiceImpl implements TodoService {
+
     @Autowired
-    private TodoRepo todoRepository;
+    TodoRepo todorepos;
+
+    @Autowired
+    UserService userService;
+
+    @Override
+    public Todo getTodoById(long id) {
+        return todorepos.findById(id).orElseThrow(() -> new EntityNotFoundException("Todo " + id + " not found"));
+    }
+
+    @Override
+    public Todo save(Todo todo, long userid) {
+        Todo newTodo = new Todo();
+        newTodo.setDescription(todo.getDescription());//set get like John says
+        newTodo.setUser(todo.getUser());
+        newTodo.setDatetime(todo.getDatetime());
+
+        return todorepos.save(newTodo);
+    }
+
 
     @Transactional
     @Override
-    public Todo updateTodo(long todoid, Todo todo) {
-        Todo existingTodo = todoRepository.findById(todoid).orElseThrow(() ->
-                new EntityNotFoundException(Long.toString(todoid)));
+    public Todo updateTodo(Todo todo, long id) {
+        Todo updateTodo = getTodoById(id);
 
+        if(todo.getDatetime()!=null){
+            updateTodo.setDatetime(todo.getDatetime());
+        }
         if (todo.getDescription() != null) {
-            existingTodo.setDescription(todo.getDescription());
+            updateTodo.setDescription(todo.getDescription());
+
+        }
+        if (todo.getUser() != null) {
+            updateTodo.setUser(userService.findUserById(todo.getUser().getUserid()));
+
         }
 
-        if (todo.getDatetime() != null) {
-            existingTodo.setDatetime(todo.getDatetime());
+        if (todo.getCompleted()) {
+            updateTodo.setCompleted(todo.getCompleted());
         }
 
-        existingTodo.setCompleted(todo.getCompleted());
-
-        return todoRepository.save(existingTodo);
+        return todorepos.save(updateTodo);
     }
+
 
 }

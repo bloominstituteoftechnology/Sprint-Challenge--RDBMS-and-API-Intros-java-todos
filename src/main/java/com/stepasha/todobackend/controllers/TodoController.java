@@ -7,6 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/todos")
 public class TodoController {
@@ -15,12 +20,10 @@ public class TodoController {
     private TodoService todoService;
 
 
-    // http://localhost:2020/todos/todo/2
-    @PutMapping(value = "/todo/{todoId}",
-            produces = {"application/json"})
-    public ResponseEntity<?> updateTodo (@RequestBody Todo updateTodo, @PathVariable long todoId) {
-        todoService.updateTodo(todoId, updateTodo);
+    @PutMapping(value = "/todo/{todoid}", consumes = {"application/json"})
+    public ResponseEntity<?> updateTodo(@RequestBody Todo todo, @PathVariable long todoid) {
 
+        todoService.updateTodo(todo, todoid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
