@@ -14,41 +14,40 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private long userid;
-    @Column(nullable = true)
+
+    @Column(unique = true, nullable = false)
     private String username;
-    @Column(nullable = true)
-    private String primaryemail;
-  //  @Column(nullable = false)
+    @Column(unique = false, nullable = true)
+    private String email;
+    @Column(nullable = false)
     private String password;
 
-
-    public void setTodos(List<Todo> todos) {
-        this.todos = todos;
-    }
-
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("user")
     private List<Todo> todos = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "userroles",
             joinColumns = @JoinColumn(name = "userid"),
-            inverseJoinColumns = @JoinColumn(name = "roleid")
-    )
+            inverseJoinColumns = @JoinColumn(name = "roleid"))
     @JsonIgnoreProperties("users")
     List<Role> roles = new ArrayList<>();
 
-    public User(){}
-    public User(String username, String primaryemail, String password) {
+    public User() {
+    }
+
+    public User(String username, String email, String password) {
         this.username = username;
-        this.primaryemail = primaryemail;
+        this.email = email;
         this.password = password;
+    }
 
+    public long getUserid() {
+        return userid;
+    }
 
-
+    public void setUserid(long userid) {
+        this.userid = userid;
     }
 
     public String getUsername() {
@@ -59,12 +58,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPrimaryemail() {
-        return primaryemail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrimaryemail(String primaryemail) {
-        this.primaryemail = primaryemail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -75,15 +74,12 @@ public class User {
         this.password = password;
     }
 
-
-    //trying to set a role
-
-    public long getUserid() {
-        return userid;
+    public List<Todo> getTodos() {
+        return todos;
     }
 
-    public void setUserid(long userid) {
-        this.userid = userid;
+    public void setTodos(List<Todo> todos) {
+        this.todos = todos;
     }
 
     public List<Role> getRoles() {
@@ -94,17 +90,17 @@ public class User {
         this.roles = roles;
     }
 
-    public void addRole(Role r1) {
-        roles.add(r1);
-        r1.getUsers().add(this);
+    public void addRole(Role role){
+        roles.add(role);
+        role.getUsers().add(this);
     }
 
-    public List<Todo> getTodos() {
-        return todos;
+    public void removeRole(Role role){
+        roles.remove(role);
+        role.getUsers().remove(this);
     }
-    public void addTodo(Todo todo) {
+
+    public void addTodo(Todo todo){
         todos.add(todo);
     }
-
-
 }

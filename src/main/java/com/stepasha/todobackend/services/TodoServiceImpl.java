@@ -24,11 +24,11 @@ public class TodoServiceImpl implements TodoService{
             existingTodo.setDescription(todo.getDescription());
         }
 
-        if (todo.getDatestarted() != null) {
-            existingTodo.setDatestarted(todo.getDatestarted());
+        if (todo.getDatetime() != null) {
+            existingTodo.setDatetime(todo.getDatetime());
         }
 
-        existingTodo.setCompleted(todo.isCompleted());
+        existingTodo.setCompleted(todo.getCompleted());
 
         return todoRepository.save(existingTodo);
     }

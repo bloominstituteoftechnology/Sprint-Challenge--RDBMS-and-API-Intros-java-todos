@@ -5,43 +5,42 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.*;
+import java.util.Date;
+
 @Entity
 @Table(name = "todos")
 public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private long todoid;
 
     @Column(nullable = false)
     private String description;
-    private Date datestarted;
-    @Transient
-    public boolean iscompleteed = false;
-    private boolean completed = false;
+    private Date datetime;
+    private Boolean completed = false;
 
-    @ManyToOne
-    @JoinColumn(name = "userid",
-            nullable = false)
-   // @JsonIgnoreProperties("todos")
+    @ManyToOne //id
+    @JoinColumn(name = "userid", nullable = false)
     private User user;
 
-    public Todo(){}
+    @Transient
+    public boolean hasBooleanValueSet = false;
 
-    public Todo(String description, Date datestarted, boolean completed, User user) {
+    public Todo() {
+    }
+
+    public Todo(String description, Date datetime, User user) {
         this.description = description;
-        this.datestarted = datestarted;
-        this.completed = completed;
+        this.datetime = datetime;
         this.user = user;
-    }
-
-    public boolean isIscompleteed() {
-        return iscompleteed;
-    }
-
-    public void setIscompleteed(boolean iscompleted) {
-        iscompleteed =true;
-        this.completed = iscompleted;
     }
 
     public long getTodoid() {
@@ -60,19 +59,20 @@ public class Todo {
         this.description = description;
     }
 
-    public Date getDatestarted() {
-        return datestarted;
+    public Date getDatetime() {
+        return datetime;
     }
 
-    public void setDatestarted(Date datestarted) {
-        this.datestarted = datestarted;
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
 
-    public boolean isCompleted() {
+    public Boolean getCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
+    public void setCompleted(Boolean completed) {
+        hasBooleanValueSet = true;
         this.completed = completed;
     }
 
