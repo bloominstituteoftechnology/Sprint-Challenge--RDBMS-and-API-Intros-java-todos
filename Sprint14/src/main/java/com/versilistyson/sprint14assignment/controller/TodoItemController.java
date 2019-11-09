@@ -1,17 +1,30 @@
 package com.versilistyson.sprint14assignment.controller;
 
+import com.versilistyson.sprint14assignment.model.Todo;
 import com.versilistyson.sprint14assignment.service.ITodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/todo_item")
+@RequestMapping("/todos")
 public class TodoItemController {
 
     @Autowired
     private ITodoService todoService;
 
-    //(PUT) /todos/todo/{todoid} -- updates a todo based on todo id
+
+    @PutMapping(
+            value = "{id}",
+            consumes = "application/json"
+    )
+    ResponseEntity<?> updateTodo(
+            @PathVariable long id,
+            @RequestBody Todo todo
+            ) {
+        todoService.updateTodo(todo, id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

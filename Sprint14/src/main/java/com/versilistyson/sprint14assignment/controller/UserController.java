@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -22,16 +23,16 @@ public class UserController {
     private IUserService userService;
 
     //(GET) http://localhost:2020/user/users -- List all users
-    @GetMapping(produces = {"application/json"})
+    @GetMapping(produces = "application/json")
     public ResponseEntity<?> listAllUsers() {
-        List<User> users = userService.findAll();
+        Set<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     //(GET) http://localhost:2020/user/{id} -- Get user by id
     @GetMapping(
             value = "/{id}",
-            produces = {"application/json"}
+            produces = "application/json"
     )
     public ResponseEntity<?> findUserById(@PathVariable long userId) {
         User user = userService.findById(userId);
@@ -40,14 +41,14 @@ public class UserController {
 
     //(POST) http://localhost:2020/users -- Adds a user
     @PostMapping(
-            consumes = {"application/json"}
+            consumes = "application/json"
     )
     public ResponseEntity<?> addUser(
             @Valid
             @RequestBody
-            User newUser
+                    User newUser
     ) {
-        newUser = userService.save(newUser);
+        newUser = userService.saveUser(newUser);
 
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder
@@ -69,23 +70,22 @@ public class UserController {
     //(Post) http://localhost:2020/user/{id}/todos/to do -- adds a to do to the user
     @PostMapping(
             value = "/{id}/todos",
-            consumes = {"application/json"}
+            consumes = "application/json"
     )
     public ResponseEntity<?> addTodoByUserId(
-            @Valid
-            @RequestBody
-                    Todo newTodoItem
+            @PathVariable long userId,
+            @Valid @RequestBody Todo newTodo
     ) {
-        newTodoItem = userService.saveTodo(newTodoItem);
+        newTodo = userService.saveTodoByUserId(newTodo, userId);
 
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newTodoItemURI = ServletUriComponentsBuilder
+        URI newTodoURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newTodoItem.getId())
+                .buildAndExpand(newTodo.getId())
                 .toUri();
 
-        responseHeaders.setLocation(newTodoItemURI);
+        responseHeaders.setLocation(newTodoURI);
 
         return new ResponseEntity<>(
                 null,
@@ -97,7 +97,7 @@ public class UserController {
     //(DELETE) http://localhost:2020/user/user_id/{user_id} -- Deletes a user and their associated todos based off of user id
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable long userId) {
-        userService.delete(userId);
+        userService.deleteById(userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

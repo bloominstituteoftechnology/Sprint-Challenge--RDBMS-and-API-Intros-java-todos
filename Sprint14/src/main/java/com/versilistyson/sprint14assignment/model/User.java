@@ -1,7 +1,10 @@
 package com.versilistyson.sprint14assignment.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -10,42 +13,44 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    public long id;
+    private long id;
 
     @Column(unique = true)
-    public String username;
+    private String username;
 
     @Column(name = "primary_email",unique = true)
-    public String primaryEmail;
+    private String primaryEmail;
 
     @NotNull
     @Column(nullable = false)
-    public String password;
+    private String password;
 
     @Column(
-            name = "todo_items"
+            name = "todos"
     )
-    @OneToMany(mappedBy = "user_id")
-    public Set<Todo> todoItems;
+    @OneToMany(
+            mappedBy = "user_id",
+            cascade = CascadeType.ALL
+    )
+    private List<Todo> todos;
 
     @ManyToMany
+    @JsonIgnoreProperties("user")
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id")
     )
-    public Set<Role> roles;
+    private List<Role> roles;
 
     public User() {
 
     }
 
-    public User(String username, String primaryEmail, @NotNull String password, Set<Todo> todoItems, Set<Role> roles) {
+    public User(String username, String primaryEmail, @NotNull String password) {
         this.username = username;
         this.primaryEmail = primaryEmail;
         this.password = password;
-        this.todoItems = todoItems;
-        this.roles = roles;
     }
 
     public long getId() {
@@ -80,19 +85,28 @@ public class User {
         this.password = password;
     }
 
-    public Set<Todo> getTodoItems() {
-        return todoItems;
+    public List<Todo> getTodo() {
+        return todos;
     }
 
-    public void setTodoItems(Set<Todo> todoItems) {
-        this.todoItems = todoItems;
+    public void setTodoItems(List<Todo> todoItems) {
+        this.todos = todoItems;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addTodo(Todo todo) {
+        todos.add(todo);
+    }
+
+    public void addRole(Role role){
+            roles.add(role);
+            role.getUsers().add(this);
     }
 }

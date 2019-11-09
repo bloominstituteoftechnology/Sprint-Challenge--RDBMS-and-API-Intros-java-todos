@@ -26,8 +26,14 @@ public class Todo {
 
     private Date datetime;
 
-    @Column(name = "completed")
-    private boolean isCompleted;
+    @Column(
+            name = "completed",
+            nullable = false
+    )
+    private boolean isCompleted = false;
+
+    @Transient
+    public boolean wasBooleanValueChanged = false;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -41,9 +47,9 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(@NotNull String description, boolean isCompleted, @NotNull User user_id) {
+    public Todo(@NotNull String description, Date datetime, @NotNull User user_id) {
         this.description = description;
-        this.isCompleted = isCompleted;
+        this.datetime = datetime;
         this.user_id = user_id;
     }
 
@@ -64,11 +70,13 @@ public class Todo {
     }
 
     public boolean isCompleted() {
+
         return isCompleted;
     }
 
     public void setCompleted(boolean completed) {
-        isCompleted = completed;
+        wasBooleanValueChanged = true;
+        this.isCompleted = completed;
     }
 
     public User getUser_id() {

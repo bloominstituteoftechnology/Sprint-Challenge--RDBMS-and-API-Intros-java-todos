@@ -5,18 +5,19 @@ import com.versilistyson.sprint14assignment.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
-@Service(value = "userService")
+
 public interface IUserService {
 
-    List<User> findAll();
+    Set<User> findAll();
 
     User findById(long id);
 
-    User save(User newUser);
+    User saveUser(User newUser);
 
-    Todo saveTodo(Todo newTodoItem);
+    Todo saveTodoByUserId(Todo newTodo, long userId);
 
-    User delete(long id);
+    void deleteById(long id);
 
 }

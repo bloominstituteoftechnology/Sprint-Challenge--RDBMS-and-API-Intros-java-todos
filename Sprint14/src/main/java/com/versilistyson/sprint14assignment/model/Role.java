@@ -19,7 +19,7 @@ public class Role {
 
 
     @ManyToMany(
-            mappedBy = "rolee"
+            mappedBy = "roles"
     )
     private List<User> users = new ArrayList<>();
 
