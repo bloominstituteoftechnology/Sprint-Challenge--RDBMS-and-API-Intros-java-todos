@@ -32,7 +32,7 @@ public class Todo {
         //I hate that this is empty, but it has to be so
     }
 
-    public Todo(String description, DateFormat datestarted, Boolean completed, User user, List<User> users) {
+    public Todo(String description, DateFormat datestarted, Boolean completed, User user) {
         this.description = description;
         this.datestarted = datestarted;
         this.completed = completed;
@@ -78,5 +78,4 @@ public class Todo {
     public void setUser(User user) {
         this.user = user;
     }
-
 }

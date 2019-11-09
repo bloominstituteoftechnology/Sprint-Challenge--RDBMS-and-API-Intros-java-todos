@@ -30,8 +30,8 @@ public class UserController {
 
     //Get http://localhost:2019/users/user/{userid} return the user and their todos based off of id
     @GetMapping(value = "/user/{userid}", produces = {"application/json"})
-    public ResponseEntity<?> findUserTodosById(@PathVariable long userid){//join table to find user tod0?
-        User myUser = userService.getUserTodosById(userid);
+    public ResponseEntity<?> findUserById(@PathVariable long userid){//join table to find user tod0?
+        User myUser = userService.getUserById(userid);
         return new ResponseEntity<>(myUser, HttpStatus.OK);
     }
 
@@ -48,6 +48,12 @@ public class UserController {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    //DELETE http://localhost:2019/users/userid/{userid} - Deletes a user based off of their userid and deletes all their associated todos.
+    @DeleteMapping(value = "/userid/{userid}")
+    public ResponseEntity<?> deleteUser(@PathVariable long userid){
+        userService.delete(userid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 
 

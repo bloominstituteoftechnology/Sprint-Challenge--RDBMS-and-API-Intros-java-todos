@@ -16,6 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+    @Column(nullable = false, unique = true)
     private String username;
     private String primaryemail;
     private String password; //stored in plain text for demo purposes
@@ -36,7 +37,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roleid")
     )
     @JsonIgnoreProperties("users")
-    private List<Todo> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
 
     ////////////////BOILER PLATE//////////////////////////////////
@@ -44,7 +45,7 @@ public class User {
     }
 
 
-    public User(String username, String primaryemail, String password, List<Todo> todos, List<Todo> roles) {
+    public User(String username, String primaryemail, String password, List<Todo> todos, List<Role> roles) {
         this.username = username;
         this.primaryemail = primaryemail;
         this.password = password;
@@ -56,9 +57,6 @@ public class User {
         return userid;
     }
 
-    public void setUserid(long userid) {
-        this.userid = userid;
-    }
 
     public String getUsername() {
         return username;
@@ -88,15 +86,18 @@ public class User {
         return todos;
     }
 
-    public void setTodos(List<Todo> todos) {
-        this.todos = todos;
-    }
-
-    public List<Todo> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Todo> roles) {
-        this.roles = roles;
+    public void addRole(Role role){
+
+        role.add(role);
+        role.getUsers().add(this);
     }
+
+    public void removeTodo(Todo todo){
+
+    }
+
 }

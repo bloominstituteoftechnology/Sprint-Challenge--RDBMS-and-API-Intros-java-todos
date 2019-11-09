@@ -13,6 +13,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long roleid;
 
+    @Column(nullable = false, unique = true)//check if null and name is unique
     private String rolename;
 
 
@@ -24,8 +25,9 @@ public class Role {
     ////////////////BOILER PLATE//////////////////////////////////
     public Role(){}
 
-    public Role(String rolename) {
+    public Role(String rolename, List<User> users) {
         this.rolename = rolename;
+        this.users = users;
     }
 
     public long getRoleid() {
@@ -42,5 +44,13 @@ public class Role {
 
     public void setRolename(String rolename) {
         this.rolename = rolename;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

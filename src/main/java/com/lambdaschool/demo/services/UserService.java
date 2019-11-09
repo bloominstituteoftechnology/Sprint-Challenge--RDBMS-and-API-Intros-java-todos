@@ -9,10 +9,10 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    User getUserTodosById(long id);
+    User getUserById(long id);
 
     User save(User user);
-    User addTodoToUser(Todo todo, long id );
+    User update (User user, long id );
 
 
 
