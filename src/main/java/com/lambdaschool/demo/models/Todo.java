@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,8 @@ public class Todo {
 
 
     private String description;
-    private DateFormat datestarted = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//potentially hazardous
+    private Date datestarted;
+   /* private DateFormat datestarted = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//potentially hazardous*/
 
     @Transient
     public boolean completedSwitch; //Publicly available switch
@@ -35,12 +37,19 @@ public class Todo {
         //I hate that this is empty, but it has to be so
     }
 
-    public Todo(String description, DateFormat datestarted, Boolean completed, User user) {
+    public Todo(String description, Date datestarted, User user) {
         this.description = description;
         this.datestarted = datestarted;
-        this.completed = completed;
         this.user = user;
         this.completed = false;
+    }
+
+    //it is mighty morphing overloading time, if not then UserServiceImpl doesn't work
+    public Todo(String description, Date datestarted,boolean completed, User user) {
+        this.description = description;
+        this.datestarted = datestarted;
+        this.user = user;
+        this.completed = completed;
     }
 
     public Boolean CompletedMethodSwitch(){
@@ -63,16 +72,12 @@ public class Todo {
         this.description = description;
     }
 
-    public DateFormat getDatestarted() {
+    public Date getDatestarted() {
         return datestarted;
     }
 
-    public void setDatestarted(DateFormat datestarted) {
+    public void setDatestarted(Date datestarted) {
         this.datestarted = datestarted;
-    }
-
-    public Boolean getCompleted() {
-        return completed;
     }
 
     public void setCompleted(Boolean completed) {

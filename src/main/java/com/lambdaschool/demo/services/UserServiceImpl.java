@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
         //loops and Adds the tod0 that the user wants saved to their tod0 list
         for (Todo t: user.getTodos() ){
 
-            Todo newTodo = new Todo(t.getDescription(),t.getDatestarted(), t.getCompleted(), newUser);
+            Todo newTodo = new Todo(t.getDescription(),t.getDatestarted(), t.completedSwitch, newUser);
             newUser.getTodos().add(newTodo);
 
         }
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService{
 
         for (Todo t: user.getTodos() ){
 
-            Todo updateTodo = new Todo(t.getDescription(),t.getDatestarted(), t.getCompleted(), updateUser);
+            Todo updateTodo = new Todo(t.getDescription(),t.getDatestarted(), t.completedSwitch, updateUser);
             updateUser.getTodos().add(updateTodo);
 
         }

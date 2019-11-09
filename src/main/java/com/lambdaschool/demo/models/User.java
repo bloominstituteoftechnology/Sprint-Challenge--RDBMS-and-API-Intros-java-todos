@@ -41,17 +41,24 @@ public class User {
 
 
     ////////////////BOILER PLATE//////////////////////////////////
-    public User() {
+    public User(String username, String password, String primaryemail) {
+        this.username = username;
+        this.primaryemail = primaryemail;
+        this.password = password;
     }
 
+    public User(){}//without this there will be problems in UserServiceImpl
 
+/*
+if this was implemented as is then when using seed data you would be required to enter a list of todos and role
+and that is not what we want
     public User(String username, String primaryemail, String password, List<Todo> todos, List<Role> roles) {
         this.username = username;
         this.primaryemail = primaryemail;
         this.password = password;
         this.todos = todos;
         this.roles = roles;
-    }
+    }*/
 
     public long getUserid() {
         return userid;

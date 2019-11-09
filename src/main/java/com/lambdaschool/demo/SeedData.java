@@ -70,7 +70,7 @@ public class SeedData implements CommandLineRunner {
         userService.save(u2);
 
         // user
-        User t = new User("",)
+
         User u3 = new User("barnbarn",
                 "ILuvM4th!",
                 "barnbarn@lambdaschool.local");

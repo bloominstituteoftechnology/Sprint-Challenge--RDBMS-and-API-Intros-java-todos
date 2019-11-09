@@ -23,12 +23,15 @@ public class Role {
 
 
     ////////////////BOILER PLATE//////////////////////////////////
-    public Role(){}
 
-    public Role(String rolename, List<User> users) {
+
+    //Do not put lists here
+    public Role(String rolename) {
         this.rolename = rolename;
-        this.users = users;
+
     }
+
+    public Role(){}//without this there are issues in RoleServiceImpl
 
     public long getRoleid() {
         return roleid;
