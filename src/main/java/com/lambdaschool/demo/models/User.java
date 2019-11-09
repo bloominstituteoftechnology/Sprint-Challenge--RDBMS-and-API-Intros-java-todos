@@ -1,6 +1,5 @@
 package com.lambdaschool.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -103,8 +102,5 @@ and that is not what we want
         role.getUsers().add(this);
     }
 
-    public void removeTodo(Todo todo){
-
-    }
 
 }

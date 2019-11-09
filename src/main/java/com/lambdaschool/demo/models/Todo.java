@@ -1,11 +1,8 @@
 package com.lambdaschool.demo.models;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "todos")
@@ -54,14 +51,6 @@ public class Todo {
 
     public Boolean CompletedMethodSwitch(){
         return completed;
-    }
-
-    public long getTodoid() {
-        return todoid;
-    }
-
-    public void setTodoid(long todoid) {
-        this.todoid = todoid;
     }
 
     public String getDescription() {

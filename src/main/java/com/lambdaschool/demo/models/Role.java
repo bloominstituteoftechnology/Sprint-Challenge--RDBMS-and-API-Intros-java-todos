@@ -37,9 +37,6 @@ public class Role {
         return roleid;
     }
 
-    public void setRoleid(long roleid) {
-        this.roleid = roleid;
-    }
 
     public String getRolename() {
         return rolename;

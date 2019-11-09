@@ -1,6 +1,8 @@
 package com.lambdaschool.demo.controllers;
 
+import com.lambdaschool.demo.models.Todo;
 import com.lambdaschool.demo.models.User;
+import com.lambdaschool.demo.services.TodoService;
 import com.lambdaschool.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TodoService todoService;
 
 
     //Get http://localhost:2019/users/users return all of the users and their todos
@@ -52,6 +57,13 @@ public class UserController {
     @DeleteMapping(value = "/userid/{userid}")
     public ResponseEntity<?> deleteUser(@PathVariable long userid){
         userService.delete(userid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // http://localhost:2019/users/todoo{userid}
+    @PostMapping(value = "/todo/{userid}", consumes = {"application/json"})
+    public ResponseEntity<?> addTodoToUser(@Valid @RequestBody Todo myTodo, @PathVariable long userid) {
+        myTodo = todoService.save(myTodo, userid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
