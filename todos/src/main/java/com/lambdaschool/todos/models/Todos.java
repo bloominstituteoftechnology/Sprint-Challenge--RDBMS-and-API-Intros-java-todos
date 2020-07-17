@@ -6,14 +6,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "todos")
-public class Todos
+public class Todos extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long todoid;
 
     private String description;
-    private boolean completed = false;
+    private boolean completed;
 
     @ManyToOne
     @JoinColumn(name = "userid",
@@ -25,11 +25,13 @@ public class Todos
     public Todos(){}
 
     public Todos(
-        String description,
-        User user)
+        User user,
+        String description
+        )
     {
-        this.description = description;
+        this.completed = false;
         this.user = user;
+        this.description = description;
     }
 
     public long getTodoid()
@@ -70,5 +72,15 @@ public class Todos
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    @Override
+    public String toString(){
+        return "Todos{" +
+            "todoid=" + todoid +
+            ", description='" + description + '\'' +
+            ", completed=" + completed +
+            ", user=" + user +
+            '}';
     }
 }

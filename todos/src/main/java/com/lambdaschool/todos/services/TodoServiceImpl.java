@@ -5,9 +5,11 @@ import com.lambdaschool.todos.repository.TodosRepository;
 import com.lambdaschool.todos.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
+@Transactional
 @Service(value = "todoService")
 public class TodoServiceImpl implements TodosService
 {
@@ -18,24 +20,15 @@ public class TodoServiceImpl implements TodosService
     UserRepository userrepos;
 
     @Override
-    public Todos addTodo(long userid, String description){
-        Todos newTodo = new Todos();
-        newTodo.setUser(userrepos.findById(userid)
-            .orElseThrow(() -> new EntityNotFoundException("User with " + userid +  " not found")));
-        newTodo.setDescription(description);
-
-        return todosrepos.save(newTodo);
+    public Todos save(Todos todos){
+        return null;
     }
 
     @Override
-    public Todos markComplete(long todoid){
-        Todos newTodo = todosrepos.findById(todoid)
+    public void markComplete(long todoid){
+        Todos completedTodo = todosrepos.findById(todoid)
             .orElseThrow(()-> new EntityNotFoundException("Could not find todo " + todoid));
-        newTodo.setCompleted(true);
+        todosrepos.save(completedTodo);
 
-        return todosrepos.save(newTodo);
     }
-
-
-
 }
