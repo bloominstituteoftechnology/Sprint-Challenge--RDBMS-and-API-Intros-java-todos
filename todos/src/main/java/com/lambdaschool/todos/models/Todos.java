@@ -24,7 +24,7 @@ public class Todos extends Auditable
     @Column(nullable = false)
     private String description;
 
-//    @Transient // will not be saved in the database and is just part of the Java object
+    @Transient // will not be saved in the database and is just part of the Java object
 //    public boolean hasvalueforcompleted = false;
     private boolean completed;
 
@@ -74,7 +74,7 @@ public class Todos extends Auditable
     public void setCompleted(boolean completed)
     {
 //        hasvalueforcompleted = true;
-        this.completed = completed;
+        this.completed = true;
         /*
         * Setters are always used to make the conversion from the JSON received
         * from the frontend client to Java objects. We take advantage of that fact
