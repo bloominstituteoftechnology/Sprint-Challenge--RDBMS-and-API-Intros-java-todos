@@ -14,7 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "todos")
-//@JsonIgnoreProperties(value = {"hasvalueforcompleted"}) // The hasvalueforsalary field will be used internally to the application to determine if a salary value came from the frontend client or should be treated as NULL
+@JsonIgnoreProperties(value = {"hasvalueforcompleted"}) // The hasvalueforsalary field will be used internally to the application to determine if a salary value came from the frontend client or should be treated as NULL
 public class Todos extends Auditable
 {
     @Id
@@ -25,7 +25,7 @@ public class Todos extends Auditable
     private String description;
 
     @Transient // will not be saved in the database and is just part of the Java object
-//    public boolean hasvalueforcompleted = false;
+    public boolean hasvalueforcompleted = false;
     private boolean completed;
 
     @ManyToOne
@@ -41,9 +41,9 @@ public class Todos extends Auditable
         User user,
         String description)
     {
-        this.completed = false;
         this.user = user;
-        this.description = description;;
+        this.description = description;
+        this.completed = false;
     }
 
     public long getTodoid()
@@ -73,8 +73,8 @@ public class Todos extends Auditable
 
     public void setCompleted(boolean completed)
     {
-//        hasvalueforcompleted = true;
-        this.completed = true;
+        hasvalueforcompleted = true;
+        this.completed = completed;
         /*
         * Setters are always used to make the conversion from the JSON received
         * from the frontend client to Java objects. We take advantage of that fact

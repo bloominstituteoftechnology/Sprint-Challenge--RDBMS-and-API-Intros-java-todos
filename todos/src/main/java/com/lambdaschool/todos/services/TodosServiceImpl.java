@@ -34,30 +34,20 @@ public class TodosServiceImpl implements TodosService
     @Override
     public Todos update(
         Todos todos,
-        long id)
+        long todosid)
     {
-        Todos currenttodos = todosrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Todo " + id + " Not Found"));
-        if (todos.getDescription() != null)
+        Todos currenttodos = todosrepos.findById(todosid)
+            .orElseThrow(() -> new EntityNotFoundException("Todo " + todosid + " Not Found"));
+        if (todos.getDescription() != null) //if i got a value, set to currenttodos description
         {
             currenttodos.setDescription(todos.getDescription());
         }
 
-        if (todos.getCompleted() == false)
+        if (todos.hasvalueforcompleted)
         {
-            currenttodos.setCompleted(todos.getCompleted());
+            currenttodos.setCompleted(true);
         }
-        //        if (todosrepos.findById(id)
-//            .isPresent())
-//        {
-//            Todos todo = findTodosById(id);
-//            todo.setCompleted(todo.getCompleted());
-//            return todosrepos.save(todos);
-//        } else
-//        {
-//            throw new EntityNotFoundException("Todo with id " + id + " Not Found!");
-//        }
+
         return todosrepos.save(currenttodos);
     }
-
 }
