@@ -45,6 +45,16 @@ public class User extends Auditable
     private String primaryemail;
 
     /**
+     * List of todos associated with this user. Does not get saved in the database directly.
+     * Forms a one to many relationship with todos. One user to many todos.
+     */
+    @OneToMany(mappedBy = "user",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user")
+    private List<Todos> todos = new ArrayList<>();
+
+    /**
      * Default constructor used primarily by the JPA.
      */
     public User()
@@ -160,5 +170,15 @@ public class User extends Auditable
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public List<Todos> getTodos()
+    {
+        return todos;
+    }
+
+    public void setTodos(List<Todos> todos)
+    {
+        this.todos = todos;
     }
 }
