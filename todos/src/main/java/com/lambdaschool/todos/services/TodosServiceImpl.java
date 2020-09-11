@@ -12,7 +12,7 @@ import javax.persistence.EntityNotFoundException;
 
 @Transactional
 @Service(value = "todosService")
-public interface TodosServiceImpl implements TodosService {
+public class TodosServiceImpl implements TodosService {
     @Autowired
     private TodosRepository todosrepositories;
 
@@ -20,7 +20,7 @@ public interface TodosServiceImpl implements TodosService {
     UserService userService;
 
     @Override
-    public Todos (long userid, Todos newTodo)
+    public Todos save (long userid, Todos newTodo)
     {
         User currentUser = userService.findUserById(userid);
         Todos saveTodo = new Todos(currentUser, newTodo.getDescription());
