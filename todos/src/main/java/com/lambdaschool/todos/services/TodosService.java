@@ -1,11 +1,11 @@
 package com.lambdaschool.todos.services;
 
-import com.lambdaschool.todos.models.Todos;
+import com.lambdaschool.todos.models.Todo;
 
 public interface TodosService
 {
 
-    Todos save(long userid, Todos newTodo);
+    Todo save(long userid, Todo newTodo);
 
-    Todos markComplete(long todoid);
+    Todo markComplete(long todoid);
 }
