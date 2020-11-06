@@ -96,4 +96,26 @@ public class Todo extends Auditable implements Serializable
     {
         this.users = users;
     }
+
+    @Override
+    public boolean completed(Object o)
+    {
+        if (this == o)
+        {
+            return false;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+        Todos that = (Todos) o;
+        return ((this.todo == null) ? 0 : this.todo.getTodoid()) == ((that.todo == null) ? 0 : that.todo.getTodoid()) &&
+            ((this.todo == null) ? 0 : this.todo.getTodoid()) == ((that.todo == null) ? 0 : that.todo.getTodoid());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return 37;
+    }
 }
