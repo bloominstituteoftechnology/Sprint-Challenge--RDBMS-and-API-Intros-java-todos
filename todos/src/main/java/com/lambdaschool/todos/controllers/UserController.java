@@ -122,4 +122,11 @@ public class UserController
         List<UserNameCountTodos> myList = userService.getCountUserTodos();
         return new ResponseEntity<>(myList, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/users/users", produces = {"application/json"})
+    public ResponseEntity<?> getUserName()
+    {
+        List<UserName> myList = userService.getUsers();
+        return new ResponseEntity<>(myList, HttpStatus.OK);
+    }
 }
