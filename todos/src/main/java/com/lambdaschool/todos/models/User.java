@@ -22,6 +22,12 @@ public class User extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+    // One to Many Relationship
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user")
+    private List<Todo> todos = new ArrayList<>();
+
     /**
      * The username (String). Cannot be null and must be unique
      */
@@ -160,5 +166,17 @@ public class User extends Auditable
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    // Getter and Setter for to do
+
+    public List<Todo> getTodos()
+    {
+        return todos;
+    }
+
+    public void setTodos(List<Todo> todos)
+    {
+        this.todos = todos;
     }
 }
