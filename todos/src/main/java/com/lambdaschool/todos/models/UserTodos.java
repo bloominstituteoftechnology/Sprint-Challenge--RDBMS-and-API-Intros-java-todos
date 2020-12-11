@@ -23,7 +23,7 @@ public class UserTodos extends Auditable implements Serializable
     @JsonIgnoreProperties(value = "users", allowSetters = true)
     private Todo todo;
 
-    String incomingzoo;
+    String incominguser;
 
     public UserTodos()
     {
@@ -32,11 +32,11 @@ public class UserTodos extends Auditable implements Serializable
     public UserTodos(
         User user,
         Todo todo,
-        String incomingzoo)
+        String incominguser)
     {
         this.user = user;
         this.todo = todo;
-        this.incomingzoo = incomingzoo;
+        this.incominguser = incominguser;
     }
 
     public UserTodos(
@@ -45,7 +45,7 @@ public class UserTodos extends Auditable implements Serializable
     {
         this.user = user;
         this.todo = todo;
-        this.incomingzoo = null;
+        this.incominguser = null;
     }
 
     public User getUser()
@@ -70,12 +70,12 @@ public class UserTodos extends Auditable implements Serializable
 
     public String getIncomingzoo()
     {
-        return incomingzoo;
+        return incominguser;
     }
 
     public void setIncomingzoo(String incomingzoo)
     {
-        this.incomingzoo = incomingzoo;
+        this.incominguser = incomingzoo;
     }
 
     @Override
