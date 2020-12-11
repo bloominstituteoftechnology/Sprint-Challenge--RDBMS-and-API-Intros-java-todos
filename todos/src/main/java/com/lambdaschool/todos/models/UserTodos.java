@@ -68,14 +68,14 @@ public class UserTodos extends Auditable implements Serializable
         this.todo = todo;
     }
 
-    public String getIncomingzoo()
+    public String getIncominguser()
     {
         return incominguser;
     }
 
-    public void setIncomingzoo(String incomingzoo)
+    public void setIncominguser(String incominguser)
     {
-        this.incominguser = incomingzoo;
+        this.incominguser = incominguser;
     }
 
     @Override
