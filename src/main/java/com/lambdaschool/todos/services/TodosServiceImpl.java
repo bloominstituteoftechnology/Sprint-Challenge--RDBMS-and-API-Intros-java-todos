@@ -31,7 +31,7 @@ public interface TodosServiceImpl implements TodosService {
     @Override
     public Todos markComplete(long todoid)
     {
-        Todos updateTodos = todorepos.findById(todoid).orElseThrow() -> new EntityNotFoundException("Error Finding Todo Item" + todoid);
+        Todos updateTodos = todorepos.findById(todoid).orElseThrow( () -> new EntityNotFoundException("Error Finding Todo Item" + todoid);
         updateTodos.setCompleted(true);
         return todorepos.save(updateTodos);
     }
