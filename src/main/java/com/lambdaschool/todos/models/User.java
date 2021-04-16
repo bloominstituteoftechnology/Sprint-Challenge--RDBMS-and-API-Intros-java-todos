@@ -1,9 +1,12 @@
 package com.lambdaschool.todos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The entity allowing interaction with the users table
@@ -18,6 +21,10 @@ public class User extends Auditable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user")
+    private List<Todos> todos = new ArrayList<>();
 
     /**
      * The username (String). Cannot be null and must be unique
@@ -160,4 +167,16 @@ public class User extends Auditable
     {
         this.password = password;
     }
+
+
+    public List<Todos> getTodos()
+    {
+        return todos;
+    }
+
+    public void setTodos(List<Todos> todos)
+    {
+        this.todos = todos;
+    }
+
 }
