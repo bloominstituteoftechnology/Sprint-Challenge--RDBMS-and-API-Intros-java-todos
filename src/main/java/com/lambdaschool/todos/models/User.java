@@ -41,6 +41,8 @@ public class User extends Auditable
     @Email
     private String primaryemail;
 
+
+
     /**
      * Default constructor used primarily by the JPA.
      */
