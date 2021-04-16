@@ -5,5 +5,4 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface TodosRepository extends CrudRepository<Todos, Long>
 {
-    Todos setCompleted
 }

@@ -16,7 +16,7 @@ public class Todos extends Auditable
     @Column(nullable = false)
     private String description;
 
-    @Transient
+    
     public boolean completed = false;
 
     @ManyToOne
