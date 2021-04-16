@@ -31,10 +31,10 @@ public class UserServiceImpl implements UserService
     @Autowired
     private UserAuditing userAuditing;
 
-    public User findUserById(long id) throws EntityNotFoundException
+    public User findUserById(long userid) throws EntityNotFoundException
     {
-        return userrepos.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("User id " + id + " not found!"));
+        return userrepos.findById(userid)
+            .orElseThrow(() -> new EntityNotFoundException("User id " + userid + " not found!"));
     }
 
     @Override
@@ -82,8 +82,7 @@ public class UserServiceImpl implements UserService
         {
             Todos newTodos = new Todos();
             newTodos.setDescription(t.getDescription());
-            newTodos.setUser(t.getUser());
-            newTodos.setCompleted(t.isCompleted());
+            newTodos.setUser(newUser);
 
             newUser.getTodos().add(newTodos);
         }

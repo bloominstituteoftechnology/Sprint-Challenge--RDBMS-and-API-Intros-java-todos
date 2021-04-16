@@ -53,7 +53,7 @@ public class UserController
      * @see UserService#findUserById(long) UserService.findUserById(long)
      */
     @GetMapping(value = "/user/{userId}",
-        produces = {"application/json"})
+        produces = "application/json")
     public ResponseEntity<?> getUserById(
         @PathVariable
             Long userId)

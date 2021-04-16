@@ -30,13 +30,11 @@ public class Todos extends Auditable
     }
 
     public Todos(
-        String description,
-        boolean completed,
-        User user)
+        User user,
+        String description)
     {
-        this.description = description;
-        this.completed = completed;
         this.user = user;
+        this.description = description;
     }
 
     public long getTodoid()
@@ -47,16 +45,6 @@ public class Todos extends Auditable
     public void setTodoid(long todoid)
     {
         this.todoid = todoid;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
     }
 
     public boolean isCompleted()
@@ -79,5 +67,14 @@ public class Todos extends Auditable
         this.user = user;
     }
 
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
 
 }
