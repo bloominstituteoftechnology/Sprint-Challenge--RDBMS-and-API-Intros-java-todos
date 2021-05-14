@@ -1,5 +1,5 @@
 # Java with RDBMS and API Intros Sprint Challenge
-
+//test for codegrade
 **Read these instructions carefully. Understand exactly what is expected _before_ starting this Sprint Challenge.**
 
 This challenge allows you to practice the concepts and techniques learned over the past sprint and apply them in a concrete project. This sprint explored **using RDBMS and APIs in Java**. During this sprint, you studied **Spring Data, JPA, and Hibernate**. In your challenge this week, you will demonstrate your mastery of these skills by creating **a Java Spring REST API Application**.
@@ -117,7 +117,7 @@ In your solution, it is essential that you follow best practices and produce cle
 - [ ] GET /users/users/todos - lists the number of todos each user has that are NOT completed. Use a custom query to accomplish this!
   - Users with 0 todos do NOT have to be included in the list
   - Order the list by username!
-  
+
 - [ ] Add in 100 more random users each with a random number (0 - 3) of random todos. The todos descriptions should be something random as well. For my example, I picked Pokemon names!
 
 ## Submission format
