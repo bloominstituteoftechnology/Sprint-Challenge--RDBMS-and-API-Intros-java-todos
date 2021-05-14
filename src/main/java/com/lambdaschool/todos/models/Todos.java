@@ -1,5 +1,7 @@
 package com.lambdaschool.todos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class Todos extends Auditable{
     private String description;
     private boolean completed = false;
 
+    @ManyToOne
+    @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnoreProperties(value = "todos", allowSetters = true)
     private User user;
 
     public long getTodoid() {
@@ -49,9 +54,8 @@ public class Todos extends Auditable{
     public Todos() {
     }
 
-    public getTodos(String description, boolean completed, User user) {
-        this.description = description;
-        this.completed = completed;
+    public Todos(User user, String description) {
         this.user = user;
+        this.description = description;
     }
 }

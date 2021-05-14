@@ -1,5 +1,6 @@
 package com.lambdaschool.todos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -40,6 +41,10 @@ public class User extends Auditable
         unique = true)
     @Email
     private String primaryemail;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private Todos todos;
 
     /**
      * Default constructor used primarily by the JPA.
@@ -157,5 +162,13 @@ public class User extends Auditable
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public Todos getTodos() {
+        return todos;
+    }
+
+    public void setTodos(Todos todos) {
+        this.todos = todos;
     }
 }

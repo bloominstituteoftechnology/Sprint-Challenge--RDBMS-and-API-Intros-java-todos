@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import com.lambdaschool.todos.models.Todos;
+import com.lambdaschool.todos.repository.TodosRepository;
+import com.lambdaschool.todos.services.TodosService;
 
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
